@@ -1,1 +1,1 @@
-plasma kde-applications sddm network-manager-applet kdeconnect
+plasma kde-applications sddm kdeconnect
