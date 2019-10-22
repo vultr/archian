@@ -68,12 +68,12 @@ locale-gen
 echo LANG=en_US.UTF-8 > /etc/locale.conf
 
 # Set hostname
-echo arch > /etc/hostname
+echo blackarch > /etc/hostname
 
 # Create Hosts file
 echo "127.0.0.1      localhost" >> /etc/hosts
 echo "::1            localhost" >> /etc/hosts
-echo "127.0.1.1      arch.localdomain arch" >> /etc/hosts
+echo "127.0.1.1      blackarch.localdomain blackarch" >> /etc/hosts
 
 # Make initramfs
 mkinitcpio -p linux
