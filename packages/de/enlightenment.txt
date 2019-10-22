@@ -1,0 +1,1 @@
+enlightenment lightdm lightdm-gtk-greeter

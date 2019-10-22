@@ -1,2 +1,9 @@
-# archian
-A fully scripted Arch installer. This is replacing the arch-scripted repo.
+# WIP
+
+# Archian
+This is an interactive install script to install Arch automagically. To install use the following command after booting to the Arch ISO,
+
+### Use
+```
+wget -O - https://raw.githubusercontent.com/eb3095/archian/master/archian.sh | bash
+```

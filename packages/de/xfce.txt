@@ -1,0 +1,1 @@
+lightdm lightdm-gtk-greeter xfce

@@ -1,0 +1,1 @@
+xf86-video-amdgpu amdvlk-binlibva-mesa-driver mesa lib32-mesa lib32-libva-mesa-driver mesa-vdpau lib32-mesa-vdpau vulkan-radeon  lib32-vulkan-radeon

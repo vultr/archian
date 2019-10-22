@@ -1,0 +1,1 @@
+ebtables ovmf qemu libvirt docker lxc lxd-git lxdui virt-manager cloud-utils
