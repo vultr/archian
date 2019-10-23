@@ -45,10 +45,12 @@ wget https://raw.githubusercontent.com/eb3095/archian/master/installers/server.s
 # Set permissions
 chmod +x /archian/bin/dialog
 
+IFSB=$IFS
 IFS=$'\n'
 DISKS=($(parted -l | grep 'Disk /' | awk '{print $2}' | sed -e "s/://"))
 DISKS_SIZES=($(parted -l | grep 'Disk /' | awk '{print $3}'))
 DISKS_DEVICES=($(parted -l | grep Model | awk '{for (i=2; i<NF; i++) printf $i " "; print $NF}'))
+IFS=$IFSB
 
 # Disk Selection
 for (( c=0; c<${#DISKS[@]}; c++ ))
