@@ -36,7 +36,7 @@ function install {
   count=${#PACKAGES[@]}
   packs=$(dialog --backtitle "Archian" \
                   --title "Packages" \
-                  --checklist "Choose $arg1 packages" 15 40 "${count}" "${OPTIONS[@]}" \
+                  --checklist "Choose $arg1 packages" 50 40 "${count}" "${OPTIONS[@]}" \
                   3>&1 1>&2 2>&3 3>&-)
 
   runuser -l installer -c "trizen -Sy --noconfirm ${packs}"
