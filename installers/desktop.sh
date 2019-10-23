@@ -228,10 +228,10 @@ desktop=$(dialog --backtitle "Archian" \
                 3>&1 1>&2 2>&3 3>&-)
 
 case $desktop in
-    [1]* ) DE=`cat /root/kde.txt`; runuser -l installer -c "trizen -Sy --noconfirm ${DE}"; systemctl enable sddm; break;;
-    [2]* ) DE=`cat /root/enlightenment.txt`; runuser -l installer -c "trizen -Sy --noconfirm ${DE}"; systemctl enable lightdm; break;;
-    [3]* ) DE=`cat /root/lxde.txt`; runuser -l installer -c "trizen -Sy --noconfirm ${DE}"; systemctl enable lightdm; break;;
-    [4]* ) DE=`cat /root/xfce.txt`; runuser -l installer -c "trizen -Sy --noconfirm ${DE}"; systemctl enable lightdm; break;;
+    [1]* ) DE=`cat /root/archian/kde.txt`; runuser -l installer -c "trizen -Sy --noconfirm ${DE}"; systemctl enable sddm; break;;
+    [2]* ) DE=`cat /root/archian/enlightenment.txt`; runuser -l installer -c "trizen -Sy --noconfirm ${DE}"; systemctl enable lightdm; break;;
+    [3]* ) DE=`cat /root/archian/lxde.txt`; runuser -l installer -c "trizen -Sy --noconfirm ${DE}"; systemctl enable lightdm; break;;
+    [4]* ) DE=`cat /root/archian/xfce.txt`; runuser -l installer -c "trizen -Sy --noconfirm ${DE}"; systemctl enable lightdm; break;;
     [5]* ) break;;
 esac
 
