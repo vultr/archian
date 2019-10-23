@@ -20,17 +20,19 @@ fi
 
 # Packages
 function install {
-  for (( c=0; c<${#2[@]}; c++ ))
+  arg1=$1
+  arg2=$2
+  for (( c=0; c<${#arg2[@]}; c++ ))
   do
-     OPTIONS+=( "${2[$c]}" )
+     OPTIONS+=( "${arg2[$c]}" )
      OPTIONS+=( "" )
      OPTIONS+=( "on" )
   done
 
-  count=${#2[@]}
+  count=${#arg2[@]}
   packs=$(/root/archian/bin/dialog --backtitle "Archian" \
                   --title "Packages" \
-                  --checklist "Choose $1 packages" 15 40 "${count}" "${OPTIONS[@]}" \
+                  --checklist "Choose $arg1 packages" 15 40 "${count}" "${OPTIONS[@]}" \
                   3>&1 1>&2 2>&3 3>&-)
 
   runuser -l installer -c "trizen -Sy --noconfirm ${packs}"
@@ -38,13 +40,15 @@ function install {
 
 # Optional Packages
 function installOptional {
+  arg1=$1
+  arg2=$2
   /root/archian/bin/dialog --backtitle "Archian" \
           --title "Packages" \
-          --yesno "Install $1 packages?" 8 30
+          --yesno "Install $arg1 packages?" 8 30
 
   $answer=$?
   if [ "$answer" = "1" ] ; then
-    install $1 $2
+    install $arg1 $arg2
   fi
 }
 
