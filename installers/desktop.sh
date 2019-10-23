@@ -229,15 +229,12 @@ desktop=$(dialog --backtitle "Archian" \
                 3>&1 1>&2 2>&3 3>&-)
 
 case $desktop in
-    [1]* ) DE=`cat /root/archian/kde.txt`; runuser -l installer -c "trizen -Sy --noconfirm ${DE}"; systemctl enable sddm; break;;
+    [1]* ) DE=`cat /root/archian/kde.txt`; runuser -l installer -c "trizen -Sy --noconfirm ${DE}"; runuser -l installer -c 'trizen --remove --noconfirm kwrite konsole konqueror kate kmail'; systemctl enable sddm; break;;
     [2]* ) DE=`cat /root/archian/enlightenment.txt`; runuser -l installer -c "trizen -Sy --noconfirm ${DE}"; systemctl enable lightdm; break;;
     [3]* ) DE=`cat /root/archian/lxde.txt`; runuser -l installer -c "trizen -Sy --noconfirm ${DE}"; systemctl enable lightdm; break;;
     [4]* ) DE=`cat /root/archian/xfce.txt`; runuser -l installer -c "trizen -Sy --noconfirm ${DE}"; systemctl enable lightdm; break;;
     [5]* ) break;;
 esac
-
-# Remove Garbage
-runuser -l installer -c 'trizen --remove --noconfirm kwrite konsole konqueror kate kmail'
 
 # Fix permissions for iw
 setcap cap_net_raw,cap_net_admin=eip /usr/bin/iwconfig
