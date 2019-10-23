@@ -109,8 +109,6 @@ os=$(/archian/bin/dialog --backtitle "Archian" \
 
 # Build chroot installer
 mkdir /mnt/root/archian/
-mkdir /mnt/root/archian/bin
-cp /archian/bin/dialog /mnt/root/archian/bin/dialog
 case $os in
   1)
     cp /archian/installers/desktop.sh /mnt/root/archian/chroot-installer.sh
