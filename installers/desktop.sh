@@ -229,7 +229,7 @@ desktop=$(dialog --backtitle "Archian" \
                 3>&1 1>&2 2>&3 3>&-)
 
 case $desktop in
-    [1]* ) DE=`cat /root/archian/kde.txt`; runuser -l installer -c "trizen -Sy --noconfirm ${DE}"; runuser -l installer -c 'trizen --remove --noconfirm kwrite konsole konqueror kate kmail'; systemctl enable sddm; break;;
+    [1]* ) DE=`cat /root/archian/kde.txt`; runuser -l installer -c "trizen -Sy --noconfirm ${DE}"; runuser -l installer -c 'trizen --remove --noconfirm kwrite konsole konqueror kate kmail yakuake'; systemctl enable sddm; break;;
     [2]* ) DE=`cat /root/archian/enlightenment.txt`; runuser -l installer -c "trizen -Sy --noconfirm ${DE}"; systemctl enable lightdm; break;;
     [3]* ) DE=`cat /root/archian/lxde.txt`; runuser -l installer -c "trizen -Sy --noconfirm ${DE}"; systemctl enable lightdm; break;;
     [4]* ) DE=`cat /root/archian/xfce.txt`; runuser -l installer -c "trizen -Sy --noconfirm ${DE}"; systemctl enable lightdm; break;;
