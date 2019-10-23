@@ -30,7 +30,7 @@ function install {
   done
 
   count=${#arg2[@]}
-  packs=$(/root/archian/bin/dialog --backtitle "Archian" \
+  packs=$(dialog --backtitle "Archian" \
                   --title "Packages" \
                   --checklist "Choose $arg1 packages" 15 40 "${count}" "${OPTIONS[@]}" \
                   3>&1 1>&2 2>&3 3>&-)
@@ -42,7 +42,7 @@ function install {
 function installOptional {
   arg1=$1
   arg2=$2
-  /root/archian/bin/dialog --backtitle "Archian" \
+  dialog --backtitle "Archian" \
           --title "Packages" \
           --yesno "Install $arg1 packages?" 8 30
 
@@ -83,24 +83,24 @@ echo "127.0.1.1      blackarch.localdomain blackarch" >> /etc/hosts
 mkinitcpio -p linux
 
 # Install ABSOLUTE essentials
-pacman -Sy wget git unzip zip base-devel grub zsh efibootmgr dosfstools os-prober mtools sudo nano --noconfirm
+pacman -Sy wget git unzip zip base-devel grub zsh efibootmgr dosfstools os-prober mtools sudo nano dialog --noconfirm
 
 # Set root password
 while true; do
-  rootpw=$(/root/archian/bin/dialog --backtitle "Archian" \
+  rootpw=$(dialog --backtitle "Archian" \
                   --title "Password" \
                   --insecure \
                   --passwordbox "Enter a root password" 10 30 \
                   3>&1 1>&2 2>&3 3>&-)
 
-  confirmPassword=$(/root/archian/bin/dialog --backtitle "Archian" \
+  confirmPassword=$(dialog --backtitle "Archian" \
                   --title "Password" \
                   --insecure \
                   --passwordbox "Confirm root password" 10 30 \
                   3>&1 1>&2 2>&3 3>&-)
 
   if [ "$rootpw" != "$confirmPassword" ] ; then
-    /root/archian/bin/dialog --backtitle "Archian" \
+    dialog --backtitle "Archian" \
             --title "Password" \
             --msgbox 'Passwords dont match!' 6 20
   else
@@ -109,27 +109,27 @@ while true; do
 done
 
 # Get user
-user=$(/root/archian/bin/dialog --backtitle "Archian" \
+user=$(dialog --backtitle "Archian" \
                 --title "User" \
                 --inputbox "Enter a user name" 10 30 \
                 3>&1 1>&2 2>&3 3>&-)
 
 # Set user password
 while true; do
-  userpw=$(/root/archian/bin/dialog --backtitle "Archian" \
+  userpw=$(dialog --backtitle "Archian" \
                   --title "Password" \
                   --insecure \
                   --passwordbox "Enter a password for ${user}" 10 30 \
                   3>&1 1>&2 2>&3 3>&-)
 
-  confirmPassword=$(/root/archian/bin/dialog --backtitle "Archian" \
+  confirmPassword=$(dialog --backtitle "Archian" \
                   --title "Password" \
                   --insecure \
                   --passwordbox "Confirm password for ${user}" 10 30 \
                   3>&1 1>&2 2>&3 3>&-)
 
   if [ "$userpw" != "$confirmPassword" ] ; then
-    /root/archian/bin/dialog --backtitle "Archian" \
+    dialog --backtitle "Archian" \
             --title "Password" \
             --msgbox 'Passwords dont match!' 6 20
   else
@@ -192,18 +192,18 @@ echo "Include = /etc/pacman.d/mirrorlist" >> /etc/pacman.conf
 
 IFSB=$IFS
 IFS=$' '
-PACKAGES=($(cat /root/packages.txt))
-DEV=($(cat /root/dev-packages.txt))
-VIRT=($(cat /root/virt-packages.txt))
-AMDGPU=($(cat /root/amdgpu.txt))
-NVIDIA=($(cat /root/nvidia.txt))
+PACKAGES=($(cat /root/archian/packages.txt))
+DEV=($(cat /root/archian/dev-packages.txt))
+VIRT=($(cat /root/archian/virt-packages.txt))
+AMDGPU=($(cat /root/archian/amdgpu.txt))
+NVIDIA=($(cat /root/archian/nvidia.txt))
 IFS=$IFSB
 
 # Install Base Packages
 install "base" $PACKAGES
 
 # Install WINE
-wine=$(/archian/bin/dialog --backtitle "Archian" \
+wine=$(dialog --backtitle "Archian" \
                 --title "Wine Selection" \
                 --menu "Select wine installation." 15 30 3 1 "Wine" 2 "Wine Staging" 3 "None" \
                 3>&1 1>&2 2>&3 3>&-)
@@ -220,7 +220,7 @@ chmod +x ./strap.sh
 ./strap.sh
 pacman -Syyu --noconfirm
 
-/archian/bin/dialog --backtitle "Archian" \
+dialog --backtitle "Archian" \
                 --title "" \
                 --yesno "Install Black Arch packages?" 8 30
 
