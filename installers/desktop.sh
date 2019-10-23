@@ -85,11 +85,13 @@ pacman -Sy wget git unzip zip base-devel grub zsh efibootmgr dosfstools os-probe
 while true; do
   rootpw=$(/root/archian/bin/dialog --backtitle "Archian" \
                   --title "Password" \
+                  --insecure \
                   --passwordbox "Enter a root password" 10 30 \
                   3>&1 1>&2 2>&3 3>&-)
 
   confirmPassword=$(/root/archian/bin/dialog --backtitle "Archian" \
                   --title "Password" \
+                  --insecure \
                   --passwordbox "Confirm root password" 10 30 \
                   3>&1 1>&2 2>&3 3>&-)
 
@@ -112,11 +114,13 @@ user=$(/root/archian/bin/dialog --backtitle "Archian" \
 while true; do
   userpw=$(/root/archian/bin/dialog --backtitle "Archian" \
                   --title "Password" \
+                  --insecure \
                   --passwordbox "Enter a password for ${user}" 10 30 \
                   3>&1 1>&2 2>&3 3>&-)
 
   confirmPassword=$(/root/archian/bin/dialog --backtitle "Archian" \
                   --title "Password" \
+                  --insecure \
                   --passwordbox "Confirm password for ${user}" 10 30 \
                   3>&1 1>&2 2>&3 3>&-)
 
