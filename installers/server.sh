@@ -203,7 +203,7 @@ installOptional "virtualization" "/root/archian/virt-packages.txt"
 # Install WINE
 wine=$(dialog --backtitle "Archian" \
                 --title "Wine Selection" \
-                --menu "Select wine installation." 15 30 3 1 "Wine" 2 "Wine Staging" 3 "None" \
+                --menu "Select wine installation." 15 30 10 1 "Wine" 2 "Wine Staging" 3 "None" \
                 3>&1 1>&2 2>&3 3>&-)
 
 case $wine in
