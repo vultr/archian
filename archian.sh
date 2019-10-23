@@ -126,12 +126,12 @@ case $os in
     mv /archian/packages/blackarch/* /mnt/root/archian/
     ;;
 esac
-chmod +x /mnt/root/chroot-installer.sh
+chmod +x /mnt/root/archian/chroot-installer.sh
 
 # Create bootstrap
-echo '#!/bin/bash' >> /mnt/root/bootstrap.sh
-echo "/root/chroot-installer.sh $drive" >> /mnt/root/bootstrap.sh
-chmod +x /mnt/root/bootstrap.sh
+echo '#!/bin/bash' >> /mnt/root/archian/bootstrap.sh
+echo "/root/archian/chroot-installer.sh $drive" >> /mnt/root/archian/bootstrap.sh
+chmod +x /mnt/root/archian/bootstrap.sh
 
 # Chroot in and run second part
-arch-chroot /mnt /root/bootstrap.sh
+arch-chroot /mnt /root/archian/bootstrap.sh
