@@ -26,6 +26,7 @@ function install {
   IFS=$' '
   PACKAGES=($(cat $arg2))
   IFS=$IFSB
+  unset OPTIONS
   for (( c=0; c<${#PACKAGES[@]}; c++ ))
   do
      OPTIONS+=( "${PACKAGES[$c]}" )
