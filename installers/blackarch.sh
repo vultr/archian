@@ -220,8 +220,8 @@ dialog --backtitle "Archian" \
                 --title "" \
                 --yesno "Install Black Arch packages?" 8 30
 
-$answer=$?
-if [ "$answer" = "1" ] ; then
+answer=$?
+if [ "$answer" -eq 0 ] ; then
   pacman -S blackarch --noconfirm
 fi
 
