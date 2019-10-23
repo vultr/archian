@@ -50,8 +50,8 @@ function installOptional {
           --title "Packages" \
           --yesno "Install $arg1 packages?" 8 30
 
-  $answer=$?
-  if [ "$answer" = "1" ] ; then
+  answer=$?
+  if [ "$answer" -eq 0 ] ; then
     install $arg1 $arg2
   fi
 }
