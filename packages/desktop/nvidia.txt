@@ -1,1 +1,1 @@
-lib32-nvidia-utils xf86-video-nvidia
+lib32-nvidia-utils xf86-video-nvidia nvidia nvidia-settings
