@@ -22,14 +22,18 @@ fi
 function install {
   arg1=$1
   arg2=$2
-  for (( c=0; c<${#arg2[@]}; c++ ))
+  IFSB=$IFS
+  IFS=$' '
+  PACKAGES=($(cat $arg2))
+  IFS=$IFSB
+  for (( c=0; c<${#PACKAGES[@]}; c++ ))
   do
-     OPTIONS+=( "${arg2[$c]}" )
+     OPTIONS+=( "${PACKAGES[$c]}" )
      OPTIONS+=( "" )
      OPTIONS+=( "on" )
   done
 
-  count=${#arg2[@]}
+  count=${#PACKAGES[@]}
   packs=$(dialog --backtitle "Archian" \
                   --title "Packages" \
                   --checklist "Choose $arg1 packages" 15 40 "${count}" "${OPTIONS[@]}" \
@@ -190,29 +194,20 @@ echo "Include = /etc/pacman.d/mirrorlist" >> /etc/pacman.conf
 echo "[multilib-testing]" >> /etc/pacman.conf
 echo "Include = /etc/pacman.d/mirrorlist" >> /etc/pacman.conf
 
-IFSB=$IFS
-IFS=$' '
-PACKAGES=($(cat /root/archian/packages.txt))
-DEV=($(cat /root/archian/dev-packages.txt))
-VIRT=($(cat /root/archian/virt-packages.txt))
-AMDGPU=($(cat /root/archian/amdgpu.txt))
-NVIDIA=($(cat /root/archian/nvidia.txt))
-IFS=$IFSB
-
 # Install Base Packages
-install "base" $PACKAGES
+install "base" "/root/archian/packages.txt"
 
 # Install Virtualization Packages
-installOptional "virtualization" $VIRT
+installOptional "virtualization" "/root/archian/virt-packages.txt"
 
 # Install Dev Packages
-installOptional "dev" $DEV
+installOptional "dev" "/root/archian/dev-packages.txt"
 
 # Install Nvidia Packages
-installOptional "nvidia" $NVIDIA
+installOptional "nvidia" "/root/archian/nvidia.txt"
 
 # Install AMDGPU Packages
-installOptional "amdgpu" $AMDGPU
+installOptional "amdgpu" "/root/archian/amdgpu.txt"
 
 # Install WINE
 wine=$(dialog --backtitle "Archian" \
