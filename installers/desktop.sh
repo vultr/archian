@@ -212,7 +212,7 @@ installOptional "amdgpu" "/root/archian/amdgpu.txt"
 # Install WINE
 wine=$(dialog --backtitle "Archian" \
                 --title "Wine Selection" \
-                --menu "Select wine installation." 15 30 3 1 "Wine" 2 "Wine Staging" 3 "None" \
+                --menu "Select wine installation." 15 30 10 1 "Wine" 2 "Wine Staging" 3 "None" \
                 3>&1 1>&2 2>&3 3>&-)
 
 case $wine in
@@ -224,7 +224,7 @@ esac
 # Install DE
 desktop=$(dialog --backtitle "Archian" \
                 --title "Desktop Selection" \
-                --menu "Select desktop installation." 15 30 3 1 "KDE" 2 "Enlightenment" 3 "LXDE" 4 "XFCE" 5 "None" \
+                --menu "Select desktop installation." 15 30 10 1 "KDE" 2 "Enlightenment" 3 "LXDE" 4 "XFCE" 5 "None" \
                 3>&1 1>&2 2>&3 3>&-)
 
 case $desktop in
