@@ -47,9 +47,9 @@ chmod +x /archian/bin/dialog
 
 IFSB=$IFS
 IFS=$'\n'
-DISKS=($(parted -l | grep 'Disk /' | awk '{print $2}' | sed -e "s/://"))
-DISKS_SIZES=($(parted -l | grep 'Disk /' | awk '{print $3}'))
-DISKS_DEVICES=($(parted -l | grep Model | awk '{for (i=2; i<NF; i++) printf $i " "; print $NF}'))
+DISKS=($(parted -l 2>/dev/null | grep -v /dev/sr | grep 'Disk /' | awk '{print $2}' | sed -e "s/://"))
+DISKS_SIZES=($(parted -l 2>/dev/null | grep -v /dev/sr | grep 'Disk /' | awk '{print $3}'))
+DISKS_DEVICES=($(parted -l 2>/dev/null | grep -v /dev/sr | grep -v DVD |  grep -v CD | grep Model | awk '{for (i=2; i<NF; i++) printf $i " "; print $NF}'))
 IFS=$IFSB
 
 # Disk Selection
