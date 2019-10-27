@@ -71,28 +71,28 @@ if [ "$EFI" = true ] ; then
   parted --script $drive set 1 esp on
   parted --script $drive mkpart primary linux-swap 261MiB 8.3GiB
   parted --script $drive mkpart primary ext4 8.3GiB 100%
-  mkfs.fat -F32 "$drive"1
+  mkfs.fat -F32 "$drive"*1
 else
   parted --script $drive mklabel msdos
   parted --script $drive mkpart primary linux-swap 1MiB 8GiB
   parted --script $drive mkpart primary ext4 8GiB 100%
   parted --script $drive set 2 boot on
-  mkfs.ext4 -F "$drive"1
+  mkfs.ext4 -F "$drive"*1
 fi
 
 # Format drive
 if [ "$EFI" = true ] ; then
-  mkswap "$drive"2
-  swapon "$drive"2
-  mkfs.ext4 -F "$drive"3
-  mount "$drive"3 /mnt
+  mkswap "$drive"*2
+  swapon "$drive"*2
+  mkfs.ext4 -F "$drive"*3
+  mount "$drive"*3 /mnt
   mkdir -p /mnt/boot/efi
-  mount "$drive"1 /mnt/boot/efi
+  mount "$drive"*1 /mnt/boot/efi
 else
-  mkswap "$drive"1
-  swapon "$drive"1
-  mkfs.ext4 -F "$drive"2
-  mount "$drive"2 /mnt
+  mkswap "$drive"*1
+  swapon "$drive"*1
+  mkfs.ext4 -F "$drive"*2
+  mount "$drive"*2 /mnt
 fi
 
 # Install base
