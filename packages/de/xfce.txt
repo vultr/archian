@@ -1,1 +1,1 @@
-lightdm lightdm-gtk-greeter xfce
+lightdm lightdm-gtk-greeter xfce4 xfce4-goodies
