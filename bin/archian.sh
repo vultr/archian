@@ -81,14 +81,5 @@ echo '#!/bin/bash' >> /mnt/root/archian/bootstrap.sh
 echo "/root/archian/bin/chroot-installer.sh $drive $os" >> /mnt/root/archian/bootstrap.sh
 chmod +x /mnt/root/archian/bootstrap.sh
 
-# Mount special
-mount --bind /dev /mnt/dev
-mv /mnt/etc/resolv.conf /mnt/etc/resolv.conf.bk
-cp /etc/resolv.conf /mnt/etc/resolv.conf
-
 # Chroot in and run second part
 arch-chroot /mnt /root/archian/bootstrap.sh
-
-# Fix resolv
-cat /mnt/etc/resolv.conf.bk > /mnt/etc/resolv.conf
-rm /mnt/etc/resolv.conf.bk
