@@ -4,7 +4,7 @@ This is a fully automated and interactive script for installing Arch. It contain
 
 ### Use
 ```
-wget -O - https://raw.githubusercontent.com/eb3095/archian/master/web.sh | bash
+curl -q https://raw.githubusercontent.com/eb3095/archian/master/web.sh | bash
 ```
 
 ### Available Bases
