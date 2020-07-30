@@ -14,7 +14,7 @@ function blackArchSetup {
 
     pacman -Syyu --noconfirm
 
-    dialog --backtitle "Archian" \
+    /root/archian/bin/dialog --backtitle "Archian" \
                     --title "" \
                     --yesno "Install Black Arch packages?" 8 30
 

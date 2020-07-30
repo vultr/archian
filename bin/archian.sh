@@ -25,7 +25,7 @@ do
    DISK_LIST+=( "${DISKS_SIZES[$c]} ${DISKS_DEVICES[$c]}" )
 done
 count=${#DISKS[@]}
-drive=$(/archian/bin/dialog --backtitle "Archian" \
+drive=$(bin/dialog --backtitle "Archian" \
                 --title "Disk Manager" \
                 --menu "Select a drive to install to. WARNING: This will DELETE all data!" 15 70 $count "${DISK_LIST[@]}" \
                 3>&1 1>&2 2>&3 3>&-)
@@ -68,7 +68,7 @@ pacstrap /mnt base linux linux-firmware --noconfirm
 genfstab -U /mnt >> /mnt/etc/fstab
 
 # Installer selection
-os=$(/archian/bin/dialog --backtitle "Archian" \
+os=$(bin/dialog --backtitle "Archian" \
                 --title "OS Selection" \
                 --menu "Select an install script to use." 15 30 3 1 "Desktop" 2 "Server" 3 "Black Arch" \
                 3>&1 1>&2 2>&3 3>&-)
