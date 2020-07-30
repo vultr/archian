@@ -83,7 +83,6 @@ chmod +x /mnt/root/archian/bootstrap.sh
 
 # Mount special
 mount --bind /dev /mnt/dev
-mount --bind /sys /mnt/sys
 mv /mnt/etc/resolv.conf /mnt/etc/resolv.conf.bk
 cp /etc/resolv.conf /mnt/etc/resolv.conf
 
