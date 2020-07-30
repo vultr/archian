@@ -16,4 +16,7 @@ git clone https://github.com/eb3095/archian
 # Start
 cd archian
 chmod +x bin/*
-./bin/archian.sh
+./bin/archian.sh 2>&1 | tee /root/archian.log
+
+# Move log
+mv /root/archian.log /mnt/var/log/archian.log
