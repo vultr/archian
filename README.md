@@ -5,5 +5,5 @@ This is an interactive install script to install Arch automagically. To install 
 
 ### Use
 ```
-wget -O - https://raw.githubusercontent.com/eb3095/archian/master/archian.sh | bash
+wget -O - https://raw.githubusercontent.com/eb3095/archian/master/web.sh | bash
 ```
