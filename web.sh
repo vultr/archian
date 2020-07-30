@@ -5,6 +5,7 @@
 # Author: Eric Benner
 
 # Install git
+pacman -Syu --noconfirm
 pacman -S git --noconfirm
 
 # Clone
