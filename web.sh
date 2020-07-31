@@ -7,7 +7,7 @@
 set -eo pipefail
 
 # Install git
-pacman -Syyu --noconfirm
+pacman -Sy --noconfirm
 pacman -S git --noconfirm
 
 # Clone
