@@ -5,5 +5,4 @@ function serverSetup {
     installOptional "AMDGPU" "amdgpu"
     installOptional "Virtualization" "virt"
     installWine
-
 }

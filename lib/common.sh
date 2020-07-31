@@ -200,7 +200,7 @@ function setupInstaller {
     git clone https://aur.archlinux.org/trizen.git
     popd
     chmod -R 777 /tmp/trizen
-    runuser -l installer -c 'cd /tmp/trizen;makepkg -si --noconfirm'
+    runuser -l installer -c 'cd /tmp/trizen; makepkg -si --noconfirm'
     rm -rf /tmp/trizen
 }
 
@@ -226,6 +226,8 @@ function configureRepo {
     # Enable Multilib Testing
     echo "[multilib-testing]" >> /etc/pacman.conf
     echo "Include = /etc/pacman.d/mirrorlist" >> /etc/pacman.conf
+
+    pacman -Sy --noconfirm
 }
 
 function installWine {
