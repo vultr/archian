@@ -41,6 +41,9 @@ configureRepo
 # Copy files
 /bin/cp -rf rootfs/* /
 
+# Permissions
+chmod +x /opt/archboot.sh
+
 # Setup package installer
 setupInstaller
 
