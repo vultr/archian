@@ -14,11 +14,21 @@ function blackArchSetup {
 
     pacman -Syyu --noconfirm
 
-    /root/archian/bin/dialog --backtitle "Archian" \
-                    --title "" \
-                    --yesno "Install Black Arch packages?" 8 30
+    if [ "$SCRIPTED" == "1" ]; then
+        INSTALL=$(getValue "packages.blackarch")
+        if [ "$INSTALL" == "true" ]; then
+            answer=1
+        else
+            answer=0
+        fi
+    else
+        /root/archian/bin/dialog --backtitle "Archian" \
+                        --title "" \
+                        --yesno "Install Black Arch packages?" 8 30
 
-    answer=$?
+        answer=$?
+    fi
+
     if [ "$answer" -eq 0 ] ; then
         pacman -S blackarch --noconfirm
     fi

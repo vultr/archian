@@ -8,11 +8,22 @@ function desktopSetup {
     installOptional "Virtualization" "virt"
     installWine
 
-    # Install DE
-    desktop=$(/root/archian/bin/dialog --backtitle "Archian" \
-                    --title "Desktop Selection" \
-                    --menu "Select desktop installation." 15 30 10 1 "KDE" 2 "Enlightenment" 3 "LXDE" 4 "XFCE" 5 "None" \
-                    3>&1 1>&2 2>&3 3>&-)
+    if [ "$SCRIPTED" == "1" ]; then
+        desktop=$(getValue "packages.desktopEnvironment")
+        case $desktop in
+            ("kde") desktop=1; break;;
+            ("enlightenment") desktop=2; break;;
+            ("lxde") desktop=3; break;;
+            ("xfce") desktop=4; break;;
+            *) desktop=5; break;;
+        esac
+    else
+        # Install DE
+        desktop=$(/root/archian/bin/dialog --backtitle "Archian" \
+                        --title "Desktop Selection" \
+                        --menu "Select desktop installation." 15 30 10 1 "KDE" 2 "Enlightenment" 3 "LXDE" 4 "XFCE" 5 "None" \
+                        3>&1 1>&2 2>&3 3>&-)
+    fi
 
     case $desktop in
         [1]* ) installKDE; break;;

@@ -1,16 +1,31 @@
 #!/bin/bash
 
 #
+# Includes
+#
+
+. lib/script.sh
+. lib/blackarch.sh
+. lib/desktop.sh
+. lib/server.sh
+
+
+
+#
 # Functions
 #
 
 # Packages
 function install {
+  if [ "$SCRIPTED" == "1" ]; then
+    installScripted $2
+    return
+  fi
   NAME=$1
   FILE="/root/archian/packages/$2.txt"
   IFSB=$IFS
   IFS=$' '
-  PACKAGES=($(cat $FILE))
+  PACKAGES=($(cat ${FILE}))
   IFS=$IFSB
   unset OPTIONS
   for (( c=0; c<${#PACKAGES[@]}; c++ ))
@@ -31,6 +46,10 @@ function install {
 
 # Optional Packages
 function installOptional {
+  if [ "$SCRIPTED" == "1" ]; then
+    installScriptedOptional $2
+    return
+  fi
   NAME=$1
   FILE=$2
   /root/archian/bin/dialog --backtitle "Archian" \
@@ -79,27 +98,32 @@ function buildInitramfs {
 
 function setRootPassword {
     # Set root password
-    while true; do
-    rootpw=$(/root/archian/bin/dialog --backtitle "Archian" \
-                    --title "Password" \
-                    --insecure \
-                    --passwordbox "Enter a root password" 10 30 \
-                    3>&1 1>&2 2>&3 3>&-)
-
-    confirmPassword=$(/root/archian/bin/dialog --backtitle "Archian" \
-                    --title "Password" \
-                    --insecure \
-                    --passwordbox "Confirm root password" 10 30 \
-                    3>&1 1>&2 2>&3 3>&-)
-
-    if [ "$rootpw" != "$confirmPassword" ] ; then
-        /root/archian/bin/dialog --backtitle "Archian" \
-                --title "Password" \
-                --msgbox 'Passwords dont match!' 6 20
+    if [ "$SCRIPTED" == "1" ]; then
+        hash=$(getValue "rootPassword")
+        echo root:${hash} | chpasswd -e
     else
-        break
+        while true; do
+        rootpw=$(/root/archian/bin/dialog --backtitle "Archian" \
+                        --title "Password" \
+                        --insecure \
+                        --passwordbox "Enter a root password" 10 30 \
+                        3>&1 1>&2 2>&3 3>&-)
+
+        confirmPassword=$(/root/archian/bin/dialog --backtitle "Archian" \
+                        --title "Password" \
+                        --insecure \
+                        --passwordbox "Confirm root password" 10 30 \
+                        3>&1 1>&2 2>&3 3>&-)
+
+        if [ "$rootpw" != "$confirmPassword" ] ; then
+            /root/archian/bin/dialog --backtitle "Archian" \
+                    --title "Password" \
+                    --msgbox 'Passwords dont match!' 6 20
+        else
+            break
+        fi
+        done
     fi
-    done
 
     # Set root password
     echo root:"$rootpw" | chpasswd
@@ -107,33 +131,41 @@ function setRootPassword {
 
 function addUser {
     # Get user
-    user=$(/root/archian/bin/dialog --backtitle "Archian" \
-                    --title "User" \
-                    --inputbox "Enter a user name" 10 30 \
-                    3>&1 1>&2 2>&3 3>&-)
-
-    # Set user password
-    while true; do
-    userpw=$(/root/archian/bin/dialog --backtitle "Archian" \
-                    --title "Password" \
-                    --insecure \
-                    --passwordbox "Enter a password for ${user}" 10 30 \
-                    3>&1 1>&2 2>&3 3>&-)
-
-    confirmPassword=$(/root/archian/bin/dialog --backtitle "Archian" \
-                    --title "Password" \
-                    --insecure \
-                    --passwordbox "Confirm password for ${user}" 10 30 \
-                    3>&1 1>&2 2>&3 3>&-)
-
-    if [ "$userpw" != "$confirmPassword" ] ; then
-        /root/archian/bin/dialog --backtitle "Archian" \
-                --title "Password" \
-                --msgbox 'Passwords dont match!' 6 20
+    if [ "$SCRIPTED" == "1" ]; then
+        user=$(getValue "user")
+        hash=$(getValue "userPassword")
+        echo ${user}:${hash} | chpasswd -e
     else
-        break
+        user=$(/root/archian/bin/dialog --backtitle "Archian" \
+                        --title "User" \
+                        --inputbox "Enter a user name" 10 30 \
+                        3>&1 1>&2 2>&3 3>&-)
+
+        # Set user password
+        while true; do
+        userpw=$(/root/archian/bin/dialog --backtitle "Archian" \
+                        --title "Password" \
+                        --insecure \
+                        --passwordbox "Enter a password for ${user}" 10 30 \
+                        3>&1 1>&2 2>&3 3>&-)
+
+        confirmPassword=$(/root/archian/bin/dialog --backtitle "Archian" \
+                        --title "Password" \
+                        --insecure \
+                        --passwordbox "Confirm password for ${user}" 10 30 \
+                        3>&1 1>&2 2>&3 3>&-)
+
+        if [ "$userpw" != "$confirmPassword" ] ; then
+            /root/archian/bin/dialog --backtitle "Archian" \
+                    --title "Password" \
+                    --msgbox 'Passwords dont match!' 6 20
+        else
+            break
+        fi
+        done
+
+        echo ${user}:"${userpw}" | chpasswd
     fi
-    done
 
     # Setup user
     mkdir /home/$user
@@ -144,7 +176,6 @@ function addUser {
     echo '    export PATH="${PATH}:$HOME/bin"' >> /home/$user/.bashrc
     echo 'fi' >> /home/$user/.bashrc
     useradd -d /home/$user $user
-    echo $user:"$userpw" | chpasswd
     chown -R $user:$user /home/$user
     usermod -aG wheel $user
 }
@@ -171,8 +202,7 @@ function setupInstaller {
 }
 
 function installGrub {
-    EFI=$1
-    drive=$2
+    drive=$1
 
     # Install Grub
     if [ "$EFI" = true ] ; then
@@ -196,10 +226,19 @@ function configureRepo {
 }
 
 function installWine {
-    wine=$(/root/archian/bin/dialog --backtitle "Archian" \
-                  --title "Wine Selection" \
-                  --menu "Select wine installation." 15 30 10 1 "Wine" 2 "Wine Staging" 3 "None" \
-                  3>&1 1>&2 2>&3 3>&-)
+    if [ "$SCRIPTED" == "1" ]; then
+        wine=$(getValue "packages.wine")
+        case $wine in
+            ("stable") wine=1; break;;
+            ("staging") wine=2; break;;
+            *) wine=3; break;;
+        esac
+    else
+        wine=$(/root/archian/bin/dialog --backtitle "Archian" \
+                    --title "Wine Selection" \
+                    --menu "Select wine installation." 15 30 10 1 "Wine" 2 "Wine Staging" 3 "None" \
+                    3>&1 1>&2 2>&3 3>&-)
+    fi
 
     case $wine in
         [1]* ) runuser -l installer -c "trizen -Sy --noconfirm wine"; break;;
@@ -238,4 +277,13 @@ EFI=false
 EFIVARS=/sys/firmware/efi/efivars
 if [ -d "$EFIVARS" ]; then
     EFI=true
+fi
+
+# Check if scripted
+FILE=./archian.json
+if [ -f "$FILE" ]; then
+    SCRIPTED=1
+    pacman -S jq --noconfirm
+else
+    SCRIPTED=0
 fi

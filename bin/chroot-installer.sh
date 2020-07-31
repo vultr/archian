@@ -13,9 +13,6 @@ cd /root/archian
 
 # Imports
 . lib/common.sh
-. lib/server.sh
-. lib/desktop.sh
-. lib/blackarch.sh
 
 
 
@@ -38,7 +35,7 @@ addUser
 
 # Finish system setup
 configureSudo
-installGrub
+installGrub $drive
 configureRepo
 
 # Setup package installer

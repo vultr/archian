@@ -1,0 +1,20 @@
+{
+    "drive": "/dev/vda",
+    "os": "desktop",
+    "rootPassword": "",
+    "user": "",
+    "userPassword": "",
+    "packages": {
+        "exclude": [
+            "jq",
+            "nano"
+        ],
+        "virt": "yes",
+        "nvidia": "yes",
+        "amd": "yes",
+        "wine": "stable",
+        "desktopEnvironment": "kde",
+        "dev": "yes",
+        "blackarch": "yes"
+    }
+}

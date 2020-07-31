@@ -10,25 +10,33 @@ timedatectl set-ntp true
 # Import common
 . lib/common.sh
 
-# Disk info
-IFSB=$IFS
-IFS=$'\n'
-DISKS=($(parted -l 2>/dev/null | grep -v /dev/sr | grep 'Disk /' | awk '{print $2}' | sed -e "s/://"))
-DISKS_SIZES=($(parted -l 2>/dev/null | grep -v /dev/sr | grep 'Disk /' | awk '{print $3}'))
-DISKS_DEVICES=($(parted -l 2>/dev/null | grep -v /dev/sr | grep -v DVD |  grep -v CD | grep Model | awk '{for (i=2; i<NF; i++) printf $i " "; print $NF}'))
-IFS=$IFSB
+if [ "$SCRIPTED" == "1" ]; then
+  drive=$(getValue "drive")
+  if [ -f "$drive" ]; then
+    echo "Failed because $drive was not found"
+    return 255
+  fi
+else
+  # Disk info
+  IFSB=$IFS
+  IFS=$'\n'
+  DISKS=($(parted -l 2>/dev/null | grep -v /dev/sr | grep 'Disk /' | awk '{print $2}' | sed -e "s/://"))
+  DISKS_SIZES=($(parted -l 2>/dev/null | grep -v /dev/sr | grep 'Disk /' | awk '{print $3}'))
+  DISKS_DEVICES=($(parted -l 2>/dev/null | grep -v /dev/sr | grep -v DVD |  grep -v CD | grep Model | awk '{for (i=2; i<NF; i++) printf $i " "; print $NF}'))
+  IFS=$IFSB
 
-# Disk Selection
-for (( c=0; c<${#DISKS[@]}; c++ ))
-do
-   DISK_LIST+=( "${DISKS[$c]}" )
-   DISK_LIST+=( "${DISKS_SIZES[$c]} ${DISKS_DEVICES[$c]}" )
-done
-count=${#DISKS[@]}
-drive=$(bin/dialog --backtitle "Archian" \
-                --title "Disk Manager" \
-                --menu "Select a drive to install to. WARNING: This will DELETE all data!" 15 70 $count "${DISK_LIST[@]}" \
-                3>&1 1>&2 2>&3 3>&-)
+  # Disk Selection
+  for (( c=0; c<${#DISKS[@]}; c++ ))
+  do
+    DISK_LIST+=( "${DISKS[$c]}" )
+    DISK_LIST+=( "${DISKS_SIZES[$c]} ${DISKS_DEVICES[$c]}" )
+  done
+  count=${#DISKS[@]}
+  drive=$(bin/dialog --backtitle "Archian" \
+                  --title "Disk Manager" \
+                  --menu "Select a drive to install to. WARNING: This will DELETE all data!" 15 70 $count "${DISK_LIST[@]}" \
+                  3>&1 1>&2 2>&3 3>&-)
+fi
 
 # Partition drive
 if [ "$EFI" = true ] ; then
@@ -68,10 +76,20 @@ pacstrap /mnt base linux linux-firmware --noconfirm
 genfstab -U /mnt >> /mnt/etc/fstab
 
 # Installer selection
-os=$(bin/dialog --backtitle "Archian" \
-                --title "OS Selection" \
-                --menu "Select an install script to use." 15 30 3 1 "Desktop" 2 "Server" 3 "Black Arch" \
-                3>&1 1>&2 2>&3 3>&-)
+if [ "$SCRIPTED" == "1" ]; then
+  os=$(getValue "os")
+  case $os in
+    ("desktop") os=1; break;;
+    ("server") os=2; break;;
+    ("blackarch") os=3; break;;
+    *) echo "Bad os selection: $os"; return 255;;
+  esac
+else
+  os=$(bin/dialog --backtitle "Archian" \
+                  --title "OS Selection" \
+                  --menu "Select an install script to use." 15 30 3 1 "Desktop" 2 "Server" 3 "Black Arch" \
+                  3>&1 1>&2 2>&3 3>&-)
+fi
 
 # Build chroot installer
 cp -rf ../archian /mnt/root/
