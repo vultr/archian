@@ -11,7 +11,7 @@ timedatectl set-ntp true
 . lib/common.sh
 
 if [ "$SCRIPTED" == "1" ]; then
-  drive=$(getValue "drive")
+  drive=$(getValue "drive" "archian.json")
   if [ -f "$drive" ]; then
     echo "Failed because $drive was not found"
     return 255
@@ -77,7 +77,7 @@ genfstab -U /mnt >> /mnt/etc/fstab
 
 # Installer selection
 if [ "$SCRIPTED" == "1" ]; then
-  os=$(getValue "os")
+  os=$(getValue "os" "archian.json")
   case $os in
     ("desktop") os=1; break;;
     ("server") os=2; break;;

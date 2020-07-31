@@ -7,6 +7,16 @@ This is a fully automated and interactive script for installing Arch. It contain
 curl -q https://raw.githubusercontent.com/eb3095/archian/master/web.sh | bash
 ```
 
+or
+
+```
+pacman -Syyu --noconfirm
+pacman -S git --noconfirm
+git clone https://github.com/eb3095/archian
+cd archian
+./install.sh
+```
+
 ### Available Bases
 * Desktop
 * BlackArch
@@ -28,8 +38,11 @@ curl -q https://raw.githubusercontent.com/eb3095/archian/master/web.sh | bash
 * XFCE
 * None
 
-# Arch.yml
-Fully preconfigured installs comming soon.
+### archian.json
+You can now script the install entirely with archian.json. An example is available in templates/example.json.
 
-# Archian Media
+This file simply needs to be in the folder you execute the curl for web.sh to bash. If you git clone it your self just move it into the archian folder before running install.sh.
+
+
+### Archian Media
 Build tool for PXE and ISO comming soon.
