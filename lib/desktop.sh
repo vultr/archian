@@ -11,11 +11,11 @@ function desktopSetup {
     if [ "$SCRIPTED" == "1" ]; then
         desktop=$(getValue "packages.desktopEnvironment")
         case $desktop in
-            ("kde") desktop=1; break;;
-            ("enlightenment") desktop=2; break;;
-            ("lxde") desktop=3; break;;
-            ("xfce") desktop=4; break;;
-            *) desktop=5; break;;
+            ("kde") desktop=1;;
+            ("enlightenment") desktop=2;;
+            ("lxde") desktop=3;;
+            ("xfce") desktop=4;;
+            *) desktop=5;;
         esac
     else
         # Install DE
@@ -26,11 +26,11 @@ function desktopSetup {
     fi
 
     case $desktop in
-        [1]* ) installKDE; break;;
-        [2]* ) installEnlightenment; break;;
-        [3]* ) installLXDE; break;;
-        [4]* ) installXFCE; break;;
-        [5]* ) break;;
+        [1]* ) installKDE;;
+        [2]* ) installEnlightenment;;
+        [3]* ) installLXDE;;
+        [4]* ) installXFCE;;
+        [5]* ) ;;
     esac
 }
 

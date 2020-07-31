@@ -21,6 +21,7 @@ function install {
     installScripted $2
     return
   fi
+
   NAME=$1
   FILE="/root/archian/packages/$2.txt"
   IFSB=$IFS
@@ -28,6 +29,7 @@ function install {
   PACKAGES=($(cat ${FILE}))
   IFS=$IFSB
   unset OPTIONS
+
   for (( c=0; c<${#PACKAGES[@]}; c++ ))
   do
      OPTIONS+=( "${PACKAGES[$c]}" )
@@ -50,6 +52,7 @@ function installOptional {
     installScriptedOptional $2
     return
   fi
+
   NAME=$1
   FILE=$2
   /root/archian/bin/dialog --backtitle "Archian" \
@@ -229,9 +232,9 @@ function installWine {
     if [ "$SCRIPTED" == "1" ]; then
         wine=$(getValue "packages.wine")
         case $wine in
-            ("stable") wine=1; break;;
-            ("staging") wine=2; break;;
-            *) wine=3; break;;
+            ("stable") wine=1;;
+            ("staging") wine=2;;
+            *) wine=3;;
         esac
     else
         wine=$(/root/archian/bin/dialog --backtitle "Archian" \
@@ -241,9 +244,9 @@ function installWine {
     fi
 
     case $wine in
-        [1]* ) runuser -l installer -c "trizen -Sy --noconfirm wine"; break;;
-        [2]* ) runuser -l installer -c "trizen -Sy --noconfirm wine-staging"; break;;
-        [3]* ) break;;
+        [1]* ) runuser -l installer -c "trizen -Sy --noconfirm wine";;
+        [2]* ) runuser -l installer -c "trizen -Sy --noconfirm wine-staging";;
+        [3]* ) ;;
     esac
 }
 

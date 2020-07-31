@@ -45,9 +45,9 @@ setupInstaller
 install "Common" "common"
 
 case $os in
-    [1]* ) desktopSetup; break;;
-    [2]* ) serverSetup; break;;
-    [3]* ) blackArchSetup; break;;
+    [1]* ) desktopSetup;;
+    [2]* ) serverSetup;;
+    [3]* ) blackArchSetup;;
 esac
 
 # Fix permissions for iw

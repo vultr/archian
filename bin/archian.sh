@@ -79,9 +79,9 @@ genfstab -U /mnt >> /mnt/etc/fstab
 if [ "$SCRIPTED" == "1" ]; then
   os=$(getValue "os" "archian.json")
   case $os in
-    ("desktop") os=1; break;;
-    ("server") os=2; break;;
-    ("blackarch") os=3; break;;
+    ("desktop") os=1;;
+    ("server") os=2;;
+    ("blackarch") os=3;;
     *) echo "Bad os selection: $os"; return 255;;
   esac
 else
