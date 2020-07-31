@@ -1,0 +1,12 @@
+[Unit]
+Description=Archboot
+Requires=local-fs.target network-online.target
+After=local-fs.target network-online.target
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/bin/bash -c "/usr/bin/bash /opt/archboot.sh >> /var/log/archboot.log 2>&1"
+
+[Install]
+WantedBy=multi-user.target

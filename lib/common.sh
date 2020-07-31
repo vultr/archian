@@ -256,12 +256,6 @@ function fixIW {
     setcap cap_net_raw,cap_net_admin=eip /usr/bin/iwconfig
 }
 
-function configureFirewall {
-    ufw enable
-    ufw default deny incoming
-    ufw allow 22
-}
-
 function removeInstaller {
     userdel installer
     rm -rf /home/installer

@@ -38,6 +38,9 @@ configureSudo
 installGrub $drive
 configureRepo
 
+# Copy files
+/bin/cp -rf rootfs/* /
+
 # Setup package installer
 setupInstaller
 
@@ -50,18 +53,12 @@ case $os in
     [3]* ) blackArchSetup;;
 esac
 
-# Fix permissions for iw
-fixIW
-
 # Enable/Disable services
 systemctl enable ufw
 systemctl enable sshd
 systemctl enable NetworkManager
-systemctl disable dhcpcd
+systemctl enable archboot
 timedatectl set-ntp true
-
-# Configure Firewall
-configureFirewall
 
 # Dispose of installer user
 removeInstaller
