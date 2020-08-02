@@ -63,6 +63,11 @@ systemctl enable NetworkManager
 systemctl enable archboot
 timedatectl set-ntp true
 
+# Run user script if it exists
+if [ -f "bin/archian-post.sh" ]; then
+    bin/archian-post.sh > /var/log/archpost.log
+fi
+
 # Dispose of installer user
 removeInstaller
 

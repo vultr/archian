@@ -38,10 +38,53 @@ cd archian
 * XFCE
 * None
 
-### archian.json
-You can now script the install entirely with archian.json. An example is available in templates/example.json.
+### Scripted Installs
 
-This file simply needs to be in the folder you execute the curl for web.sh to bash. If you git clone it your self just move it into the archian folder before running install.sh.
+#### archian.json
+You can now script the install entirely with archian.json. An example is available in templates/example.json. This defines everything
+before hand about the install process. Package configuration is exclusionary but you can disable all packages. Black arch is for the
+blackarch install only.
+
+The entire install process is logged to /var/log/arch-install.log. The install process is only logged when scripted. As of now I do
+not have a proper work around for stdout/stderr redirection that doesn't break dialog.
+
+#### archian-boot.sh
+The boot script is a bash script named archian-boot.sh. This executes on first boot after the archian boot process runs. The boot script is entirely optional. This does not require archian.json. Everything
+is logged to /var/log/archboot.log.
+
+#### archian-post.sh
+This script is executed after everything is done, while still chrooted, but before the installer is removed. Use the following to install
+packages via trizen from repo or aur. Be warned this isn't verified and just confirms everything. This script is optional. This does not
+require archian.json. This is logged to /var/log/archpost.log
+
+```
+install_pkgs nano vi emacs
+```
+
+#### rootfs
+Files in rootfs are copied over, overwriting anything else in there. If you need anything more then that, do it in the scripts.
+
+These files simply need to be in the folder you are in when you execute the curl for web.sh. If you git clone it your self just move
+them into the archian folder before running install.sh.
+
+Web
+```
+./
+  archian.json
+  archian-boot.sh
+```
+
+Git
+```
+archian/
+  archian.json
+  archian-boot.sh
+  install.sh
+  rootfs/
+  bin/
+  lib/
+  ...
+```
 
 
 ### Archian Media

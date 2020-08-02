@@ -101,3 +101,6 @@ chmod +x /mnt/root/archian/bootstrap.sh
 
 # Chroot in and run second part
 arch-chroot /mnt /root/archian/bootstrap.sh
+
+# Move log
+mv arch-install.log /mnt/var/log/

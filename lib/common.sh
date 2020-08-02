@@ -15,6 +15,11 @@
 # Functions
 #
 
+function install_pkgs {
+    packs=$@
+    runuser -l installer -c "trizen -Sy --noconfirm ${packs}"
+}
+
 # Packages
 function install {
   if [ "$SCRIPTED" == "1" ]; then
@@ -43,7 +48,7 @@ function install {
                   --checklist "Choose $NAME packages" 30 40 "${count}" "${OPTIONS[@]}" \
                   3>&1 1>&2 2>&3 3>&-)
 
-  runuser -l installer -c "trizen -Sy --noconfirm ${packs}"
+  install_pkgs "${packs}"
 }
 
 # Optional Packages
@@ -246,8 +251,8 @@ function installWine {
     fi
 
     case $wine in
-        [1]* ) runuser -l installer -c "trizen -Sy --noconfirm wine";;
-        [2]* ) runuser -l installer -c "trizen -Sy --noconfirm wine-staging";;
+        [1]* ) install_pkgs "wine";;
+        [2]* ) install_pkgs "wine-staging";;
         [3]* ) ;;
     esac
 }

@@ -14,12 +14,30 @@ pacman -S git --noconfirm
 git clone https://github.com/eb3095/archian
 
 # Check for installation script
-FILE=./archian.json
-if [ -f "$FILE" ]; then
-    mv ./archian.json archian/
+if [ -f "archian.json" ]; then
+    mv archian.json archian/
+    LOGGING="true"
+else
+    LOGGING="false"
+fi
+
+# Move user scripts
+if [ -f "archian-boot.sh" ]; then
+    mv archian-boot.sh archian/rootfs/boot.sh
+    chmod +x archian/rootfs/boot.sh
+fi
+
+if [ -f "archian-post.sh" ]; then
+    mv archian-post.sh archian/bin/archian-post.sh
+    chmod +x archian/bin/archian-post.sh
 fi
 
 # Start
 cd archian
 chmod +x bin/*
-./bin/archian.sh
+
+if [ "$LOGGING" == "true" ]; then
+    ./bin/archian.sh > arch-install.log
+else
+    ./bin/archian.sh
+fi
