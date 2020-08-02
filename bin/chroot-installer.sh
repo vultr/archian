@@ -21,7 +21,7 @@ cd /root/archian
 #
 
 # Install ABSOLUTE essentials
-pacman -Sy wget git unzip zip base-devel grub efibootmgr dosfstools os-prober mtools sudo nano dialog --noconfirm
+pacman -Sy wget git unzip zip base-devel grub efibootmgr dosfstools os-prober mtools sudo nano --noconfirm
 
 # Setup
 setClock
