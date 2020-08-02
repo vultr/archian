@@ -10,7 +10,7 @@ curl -q https://raw.githubusercontent.com/eb3095/archian/master/web.sh | bash
 or
 
 ```
-pacman -Syyu --noconfirm
+pacman -Sy --noconfirm
 pacman -S git --noconfirm
 git clone https://github.com/eb3095/archian
 cd archian
