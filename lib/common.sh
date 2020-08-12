@@ -43,7 +43,7 @@ function install {
   done
 
   count=${#PACKAGES[@]}
-  packs=$(/root/archian/bin/dialog --backtitle "Archian" \
+  packs=$(dialog --backtitle "Archian" \
                   --title "Packages" \
                   --checklist "Choose $NAME packages" 30 40 "${count}" "${OPTIONS[@]}" \
                   3>&1 1>&2 2>&3 3>&-)
@@ -60,7 +60,7 @@ function installOptional {
 
   NAME=$1
   FILE=$2
-  /root/archian/bin/dialog --backtitle "Archian" \
+  dialog --backtitle "Archian" \
           --title "Packages" \
           --yesno "Install $NAME packages?" 8 30
 
@@ -111,20 +111,20 @@ function setRootPassword {
         echo root:${hash} | chpasswd -e
     else
         while true; do
-        rootpw=$(/root/archian/bin/dialog --backtitle "Archian" \
+        rootpw=$(dialog --backtitle "Archian" \
                         --title "Password" \
                         --insecure \
                         --passwordbox "Enter a root password" 10 30 \
                         3>&1 1>&2 2>&3 3>&-)
 
-        confirmPassword=$(/root/archian/bin/dialog --backtitle "Archian" \
+        confirmPassword=$(dialog --backtitle "Archian" \
                         --title "Password" \
                         --insecure \
                         --passwordbox "Confirm root password" 10 30 \
                         3>&1 1>&2 2>&3 3>&-)
 
         if [ "$rootpw" != "$confirmPassword" ] ; then
-            /root/archian/bin/dialog --backtitle "Archian" \
+            dialog --backtitle "Archian" \
                     --title "Password" \
                     --msgbox 'Passwords dont match!' 6 20
         else
@@ -144,27 +144,27 @@ function addUser {
         hash=$(getValue "userPassword")
         echo ${user}:${hash} | chpasswd -e
     else
-        user=$(/root/archian/bin/dialog --backtitle "Archian" \
+        user=$(dialog --backtitle "Archian" \
                         --title "User" \
                         --inputbox "Enter a user name" 10 30 \
                         3>&1 1>&2 2>&3 3>&-)
 
         # Set user password
         while true; do
-        userpw=$(/root/archian/bin/dialog --backtitle "Archian" \
+        userpw=$(dialog --backtitle "Archian" \
                         --title "Password" \
                         --insecure \
                         --passwordbox "Enter a password for ${user}" 10 30 \
                         3>&1 1>&2 2>&3 3>&-)
 
-        confirmPassword=$(/root/archian/bin/dialog --backtitle "Archian" \
+        confirmPassword=$(dialog --backtitle "Archian" \
                         --title "Password" \
                         --insecure \
                         --passwordbox "Confirm password for ${user}" 10 30 \
                         3>&1 1>&2 2>&3 3>&-)
 
         if [ "$userpw" != "$confirmPassword" ] ; then
-            /root/archian/bin/dialog --backtitle "Archian" \
+            dialog --backtitle "Archian" \
                     --title "Password" \
                     --msgbox 'Passwords dont match!' 6 20
         else
@@ -244,7 +244,7 @@ function installWine {
             *) wine=3;;
         esac
     else
-        wine=$(/root/archian/bin/dialog --backtitle "Archian" \
+        wine=$(dialog --backtitle "Archian" \
                     --title "Wine Selection" \
                     --menu "Select wine installation." 15 30 10 1 "Wine" 2 "Wine Staging" 3 "None" \
                     3>&1 1>&2 2>&3 3>&-)
