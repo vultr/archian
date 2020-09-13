@@ -142,7 +142,6 @@ function addUser {
     if [ "$SCRIPTED" == "1" ]; then
         user=$(getValue "user")
         hash=$(getValue "userPassword")
-        echo ${user}:${hash} | chpasswd -e
     else
         user=$(dialog --backtitle "Archian" \
                         --title "User" \
@@ -151,28 +150,26 @@ function addUser {
 
         # Set user password
         while true; do
-        userpw=$(dialog --backtitle "Archian" \
-                        --title "Password" \
-                        --insecure \
-                        --passwordbox "Enter a password for ${user}" 10 30 \
-                        3>&1 1>&2 2>&3 3>&-)
+            userpw=$(dialog --backtitle "Archian" \
+                            --title "Password" \
+                            --insecure \
+                            --passwordbox "Enter a password for ${user}" 10 30 \
+                            3>&1 1>&2 2>&3 3>&-)
 
-        confirmPassword=$(dialog --backtitle "Archian" \
-                        --title "Password" \
-                        --insecure \
-                        --passwordbox "Confirm password for ${user}" 10 30 \
-                        3>&1 1>&2 2>&3 3>&-)
+            confirmPassword=$(dialog --backtitle "Archian" \
+                            --title "Password" \
+                            --insecure \
+                            --passwordbox "Confirm password for ${user}" 10 30 \
+                            3>&1 1>&2 2>&3 3>&-)
 
-        if [ "$userpw" != "$confirmPassword" ] ; then
-            dialog --backtitle "Archian" \
-                    --title "Password" \
-                    --msgbox 'Passwords dont match!' 6 20
-        else
-            break
-        fi
+            if [ "$userpw" != "$confirmPassword" ] ; then
+                dialog --backtitle "Archian" \
+                        --title "Password" \
+                        --msgbox 'Passwords dont match!' 6 20
+            else
+                break
+            fi
         done
-
-        echo ${user}:"${userpw}" | chpasswd
     fi
 
     # Setup user
@@ -186,6 +183,11 @@ function addUser {
     useradd -d /home/$user $user
     chown -R $user:$user /home/$user
     usermod -aG wheel $user
+    if [ "$SCRIPTED" == "1" ]; then        
+        echo ${user}:${hash} | chpasswd -e
+    else
+        echo ${user}:"${userpw}" | chpasswd
+    fi
 }
 
 function configureSudo {
