@@ -10,6 +10,9 @@ timedatectl set-ntp true
 # Import common
 . lib/common.sh
 
+# Install dependencies for installer
+pacman -S dialog --noconfirm
+
 if [ "$SCRIPTED" == "1" ]; then
   drive=$(getValue "drive" "archian.json")
   if [ -f "$drive" ]; then
@@ -32,7 +35,7 @@ else
     DISK_LIST+=( "${DISKS_SIZES[$c]} ${DISKS_DEVICES[$c]}" )
   done
   count=${#DISKS[@]}
-  drive=$(bin/dialog --backtitle "Archian" \
+  drive=$(dialog --backtitle "Archian" \
                   --title "Disk Manager" \
                   --menu "Select a drive to install to. WARNING: This will DELETE all data!" 15 70 $count "${DISK_LIST[@]}" \
                   3>&1 1>&2 2>&3 3>&-)
@@ -85,7 +88,7 @@ if [ "$SCRIPTED" == "1" ]; then
     *) echo "Bad os selection: $os"; return 255;;
   esac
 else
-  os=$(bin/dialog --backtitle "Archian" \
+  os=$(dialog --backtitle "Archian" \
                   --title "OS Selection" \
                   --menu "Select an install script to use." 15 30 3 1 "Desktop" 2 "Server" 3 "Black Arch" \
                   3>&1 1>&2 2>&3 3>&-)
