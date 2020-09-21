@@ -22,7 +22,7 @@ function blackArchSetup {
             answer=0
         fi
     else
-        /root/archian/bin/dialog --backtitle "Archian" \
+        dialog --backtitle "Archian" \
                         --title "" \
                         --yesno "Install Black Arch packages?" 8 30
 

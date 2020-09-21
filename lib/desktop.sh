@@ -19,7 +19,7 @@ function desktopSetup {
         esac
     else
         # Install DE
-        desktop=$(/root/archian/bin/dialog --backtitle "Archian" \
+        desktop=$(dialog --backtitle "Archian" \
                         --title "Desktop Selection" \
                         --menu "Select desktop installation." 15 30 10 1 "KDE" 2 "Enlightenment" 3 "LXDE" 4 "XFCE" 5 "None" \
                         3>&1 1>&2 2>&3 3>&-)
