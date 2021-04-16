@@ -10,6 +10,7 @@ ufw allow 22
 # Execute user script if it exists
 if [ -f "/opt/boot.sh" ]; then
     /opt/boot.sh
+    rm /opt/boot.sh
 fi
 
 systemctl disable archboot.service
