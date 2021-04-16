@@ -36,8 +36,8 @@ fi
 
 # Move user scripts
 if [ -f "archian-boot.sh" ]; then
-    mv archian-boot.sh archian/rootfs/boot.sh
-    chmod +x archian/rootfs/boot.sh
+    mv archian-boot.sh archian/rootfs/opt/boot.sh
+    chmod +x archian/rootfs/opt/boot.sh
 fi
 
 if [ -f "archian-post.sh" ]; then
