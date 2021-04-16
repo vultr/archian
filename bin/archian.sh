@@ -107,3 +107,9 @@ arch-chroot /mnt /root/archian/bootstrap.sh
 
 # Move log
 mv arch-install.log /mnt/var/log/
+
+# Announce
+echo "----------------------------------------"
+echo "Finished installing!"
+echo "Go ahead and reboot and unmount you ISO"
+echo "----------------------------------------"
