@@ -21,7 +21,10 @@ cd /root/archian
 #
 
 # Install ABSOLUTE essentials
-pacman -Sy wget git unzip zip base-devel grub efibootmgr dosfstools os-prober mtools sudo nano dialog iptables-nft --noconfirm
+pacman -Sy wget git unzip zip base-devel grub efibootmgr dosfstools os-prober mtools sudo nano dialog --noconfirm
+
+# Install iptables-nft, conflicts arise otherwise
+yes | pacman -Sy iptables-nft
 
 # Setup
 setClock
