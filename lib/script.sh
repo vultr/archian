@@ -6,7 +6,11 @@ function getValue {
     if [ -z "$FILE" ]; then
         FILE="/root/archian/archian.json"
     fi
-    return jq ".${KEY}" ${FILE} | sed 's/"//g'
+    VAL=$(jq ".${KEY}" ${FILE} | sed 's/"//g')
+    if [ "$?" != "0" ]; then
+      echo -n ""
+    fi
+    echo -n "${VAL}"
 }
 
 function installScripted {
