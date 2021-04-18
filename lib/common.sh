@@ -91,12 +91,12 @@ function configureLocale {
 
 function configureHosts {
     # Set hostname
-    echo arch > /etc/hostname
+    echo archian > /etc/hostname
 
     # Create Hosts file
     echo "127.0.0.1      localhost" >> /etc/hosts
     echo "::1            localhost" >> /etc/hosts
-    echo "127.0.1.1      arch.localdomain arch" >> /etc/hosts
+    echo "127.0.1.1      archian.localdomain archian" >> /etc/hosts
 }
 
 function buildInitramfs {
