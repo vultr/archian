@@ -110,9 +110,11 @@ archian/
 
 ### Archian Media
 You can find the latest ISO download from the following link,
+
 http://45.77.146.64/
 
 If you would like to build your own, the creation script can be found here,
+
 https://github.com/eb3095/archian-iso
 
 Build tool for PXE comming soon.
