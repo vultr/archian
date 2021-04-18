@@ -11,7 +11,9 @@ timedatectl set-ntp true
 . lib/common.sh
 
 # Install dependencies for installer
-pacman -S dialog --noconfirm
+if [ ! -f /usr/bin/dialog ]; then
+  pacman -S dialog --noconfirm
+fi
 
 if [ "$SCRIPTED" == "1" ]; then
   drive=$(getValue "drive" "archian.json")

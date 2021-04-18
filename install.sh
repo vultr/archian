@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Desktop Installaltion Script
+# Manual Installaltion Script
 # Version: 2.0
 # Author: Eric Benner
 

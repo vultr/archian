@@ -183,7 +183,7 @@ function addUser {
     useradd -d /home/$user $user
     chown -R $user:$user /home/$user
     usermod -aG wheel $user
-    if [ "$SCRIPTED" == "1" ]; then        
+    if [ "$SCRIPTED" == "1" ]; then
         echo ${user}:${hash} | chpasswd -e
     else
         echo ${user}:"${userpw}" | chpasswd
@@ -289,7 +289,9 @@ fi
 FILE=./archian.json
 if [ -f "$FILE" ]; then
     SCRIPTED=1
-    pacman -S jq --noconfirm
+    if [ ! -f /usr/bin/jq ]; then
+        pacman -S jq --noconfirm
+    fi
 else
     SCRIPTED=0
 fi

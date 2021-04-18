@@ -1,30 +1,16 @@
 #!/bin/bash
 
-# Web Installaltion Script
+# ISO Installaltion Script
 # Version: 2.0
 # Author: Eric Benner
 
 set -eo pipefail
-
-# Fix issue with space
-mount -t ramfs -o size=64mb ramfs /tmp
-mount -t ramfs -o size=64mb ramfs /home
-
-# Go to root
-cd /root
 
 # Fix mirrors
 /bin/rm -f /etc/pacman.d/mirrorlist
 curl -o '/etc/pacman.d/mirrorlist' 'https://archlinux.org/mirrorlist/?country=all&protocol=http&protocol=https&ip_version=4&ip_version=6&use_mirror_status=on'
 sed -i -e 's/#Server/Server/g' /etc/pacman.d/mirrorlist
 pacman -Sy pacman-mirrorlist --noconfirm
-
-# Install git
-pacman -Sy --noconfirm
-pacman -S git --noconfirm
-
-# Clone
-git clone https://github.com/eb3095/archian
 
 # Check for installation script
 if [ -f "archian.json" ]; then
@@ -46,7 +32,6 @@ if [ -f "archian-post.sh" ]; then
 fi
 
 # Start
-cd archian
 chmod +x bin/*
 
 if [ "$LOGGING" == "true" ]; then
@@ -54,3 +39,4 @@ if [ "$LOGGING" == "true" ]; then
 else
     ./bin/archian.sh
 fi
+
