@@ -96,6 +96,23 @@ else
                   3>&1 1>&2 2>&3 3>&-)
 fi
 
+# Installer selection
+if [ "$SCRIPTED" == "1" ]; then
+  files=$(getValue "files" "archian.json")
+  wget "${files} -O files.zip"
+  unzip files.zip
+
+  if [ -f "archian-boot.sh" ]; then
+      mv archian-boot.sh ./rootfs/opt/boot.sh
+      chmod +x ./rootfs/opt/boot.sh
+  fi
+
+  if [ -f "archian-post.sh" ]; then
+      mv archian-post.sh ./bin/archian-post.sh
+      chmod +x ./bin/archian-post.sh
+  fi
+fi
+
 # Build chroot installer
 cp -rf ../archian /mnt/root/
 

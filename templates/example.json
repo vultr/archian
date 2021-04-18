@@ -1,6 +1,7 @@
 {
     "drive": "/dev/vda",
     "os": "desktop",
+    "files": "https://example.com/files.zip",
     "rootPassword": "",
     "user": "",
     "userPassword": "",

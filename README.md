@@ -48,6 +48,17 @@ blackarch install only.
 The entire install process is logged to /var/log/arch-install.log. The install process is only logged when scripted. As of now I do
 not have a proper work around for stdout/stderr redirection that doesn't break dialog.
 
+Note the "files" option in the json format. This is to provide a link to download the rootfs directory and scripts. This needs to be a
+zip file as of right now. The structure of this should be as follows.
+
+```
+rootfs/
+  root/
+  etc/
+archian-boot.sh
+archian-post.sh
+```
+
 #### archian-boot.sh
 The boot script is a bash script named archian-boot.sh. This executes on first boot after the archian boot process runs. The boot script is entirely optional. This does not require archian.json. Everything
 is logged to /var/log/archboot.log.
@@ -89,3 +100,5 @@ archian/
 
 ### Archian Media
 Build tool for PXE and ISO comming soon.
+
+<a href="https://www.buymeacoffee.com/eb3095" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
