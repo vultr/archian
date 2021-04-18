@@ -55,6 +55,14 @@ blackarch install only.
 The entire install process is logged to /var/log/arch-install.log. The install process is only logged when scripted. As of now I do
 not have a proper work around for stdout/stderr redirection that doesn't break dialog.
 
+This can also be configured in the ISO boot menu via the cmdline,
+
+archian_json=https(s)|ftp://url
+
+or
+
+archian_json=/path/to/file
+
 Note the "files" option in the json format. This is to provide a link to download the rootfs directory and scripts. This needs to be a
 zip file as of right now. The structure of this should be as follows.
 
