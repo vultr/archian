@@ -1,6 +1,7 @@
 
 # Archian
-This is a fully automated and interactive script for installing Arch. It contains a wide variety of options. To install use the following command after booting to the Arch ISO,
+This is a fully automated and interactive script for installing Arch. It contains a wide variety of options. To install use the
+following command after booting to the Arch ISO,
 
 ### Use
 ```
@@ -16,6 +17,10 @@ git clone https://github.com/eb3095/archian
 cd archian
 ./install.sh
 ```
+
+or
+
+Use the ISO from the **Archian Media** section.
 
 ### Available Bases
 * Desktop
@@ -60,8 +65,8 @@ archian-post.sh
 ```
 
 #### archian-boot.sh
-The boot script is a bash script named archian-boot.sh. This executes on first boot after the archian boot process runs. The boot script is entirely optional. This does not require archian.json. Everything
-is logged to /var/log/archboot.log.
+The boot script is a bash script named archian-boot.sh. This executes on first boot after the archian boot process runs. The boot script
+is entirely optional. This does not require archian.json. Everything is logged to /var/log/archboot.log.
 
 #### archian-post.sh
 This script is executed after everything is done, while still chrooted, but before the installer is removed. Use the following to install
@@ -76,20 +81,23 @@ install_pkgs nano vi emacs
 Files in rootfs are copied over, overwriting anything else in there. If you need anything more then that, do it in the scripts.
 
 These files simply need to be in the folder you are in when you execute the curl for web.sh. If you git clone it your self just move
-them into the archian folder before running install.sh.
+them into the archian folder's rootfs before running install.sh. Same with the ISO if you build it manually.
 
 Web
 ```
 ./
   archian.json
   archian-boot.sh
+  archian-post.sh
+  rootfs/
 ```
 
-Git
+Git / ISO
 ```
+archian.json
+archian-boot.sh
+archian-post.sh
 archian/
-  archian.json
-  archian-boot.sh
   install.sh
   rootfs/
   bin/

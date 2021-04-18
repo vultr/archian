@@ -12,7 +12,7 @@ timedatectl set-ntp true
 
 # Install dependencies for installer
 if [ ! -f /usr/bin/dialog ]; then
-  pacman -S dialog --noconfirm
+  pacman -S dialog unzip wget --noconfirm
 fi
 
 if [ "$SCRIPTED" == "1" ]; then
@@ -99,17 +99,19 @@ fi
 # Installer selection
 if [ "$SCRIPTED" == "1" ]; then
   files=$(getValue "files" "archian.json")
-  wget "${files} -O files.zip"
-  unzip files.zip
+  if [ ! -z "${files}" ]; then
+    wget "${files} -O files.zip"
+    unzip -o files.zip
 
-  if [ -f "archian-boot.sh" ]; then
-      mv archian-boot.sh ./rootfs/opt/boot.sh
-      chmod +x ./rootfs/opt/boot.sh
-  fi
+    if [ -f "archian-boot.sh" ]; then
+        mv archian-boot.sh ./rootfs/opt/boot.sh
+        chmod +x ./rootfs/opt/boot.sh
+    fi
 
-  if [ -f "archian-post.sh" ]; then
-      mv archian-post.sh ./bin/archian-post.sh
-      chmod +x ./bin/archian-post.sh
+    if [ -f "archian-post.sh" ]; then
+        mv archian-post.sh ./bin/archian-post.sh
+        chmod +x ./bin/archian-post.sh
+    fi
   fi
 fi
 

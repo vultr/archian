@@ -34,6 +34,11 @@ else
     LOGGING="false"
 fi
 
+# Move rootfs
+if [ -f ../rootfs ]; then
+    cp -rf ../rootfs rootfs/
+fi
+
 # Move user scripts
 if [ -f "archian-boot.sh" ]; then
     mv archian-boot.sh archian/rootfs/opt/boot.sh

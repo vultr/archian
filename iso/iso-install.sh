@@ -12,23 +12,26 @@ curl -o '/etc/pacman.d/mirrorlist' 'https://archlinux.org/mirrorlist/?country=al
 sed -i -e 's/#Server/Server/g' /etc/pacman.d/mirrorlist
 pacman -Sy pacman-mirrorlist --noconfirm
 
+# Enter directory
+cd archian
+
 # Check for installation script
-if [ -f "archian.json" ]; then
-    mv archian.json archian/
+if [ -f ../archian.json ]; then
+    mv ../archian.json ./
     LOGGING="true"
 else
     LOGGING="false"
 fi
 
 # Move user scripts
-if [ -f "archian-boot.sh" ]; then
-    mv archian-boot.sh archian/rootfs/opt/boot.sh
-    chmod +x archian/rootfs/opt/boot.sh
+if [ -f ../archian-boot.sh ]; then
+    mv ../archian-boot.sh ./rootfs/opt/boot.sh
+    chmod +x ./rootfs/opt/boot.sh
 fi
 
-if [ -f "archian-post.sh" ]; then
-    mv archian-post.sh archian/bin/archian-post.sh
-    chmod +x archian/bin/archian-post.sh
+if [ -f ../archian-post.sh ]; then
+    mv ../archian-post.sh ./bin/archian-post.sh
+    chmod +x ./bin/archian-post.sh
 fi
 
 # Start
