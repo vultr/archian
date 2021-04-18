@@ -12,9 +12,6 @@ curl -o '/etc/pacman.d/mirrorlist' 'https://archlinux.org/mirrorlist/?country=al
 sed -i -e 's/#Server/Server/g' /etc/pacman.d/mirrorlist
 pacman -Sy pacman-mirrorlist --noconfirm
 
-# Enter directory
-cd archian
-
 # Check for installation script
 if [ -f ../archian.json ]; then
     mv ../archian.json ./

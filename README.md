@@ -46,6 +46,8 @@ Use the ISO from the **Archian Media** section.
 ### Scripted Installs
 
 #### archian.json
+**WARNING** - This is still an untested WIP feature
+
 You can now script the install entirely with archian.json. An example is available in templates/example.json. This defines everything
 before hand about the install process. Package configuration is exclusionary but you can disable all packages. Black arch is for the
 blackarch install only.
@@ -107,6 +109,12 @@ archian/
 
 
 ### Archian Media
-Build tool for PXE and ISO comming soon.
+You can find the latest ISO download from the following link,
+http://45.77.146.64/
+
+If you would like to build your own, the creation script can be found here,
+https://github.com/eb3095/archian-iso
+
+Build tool for PXE comming soon.
 
 <a href="https://www.buymeacoffee.com/eb3095" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
