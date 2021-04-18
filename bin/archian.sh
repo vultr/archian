@@ -1,7 +1,6 @@
 #!/bin/bash
 
 # Archian
-# Version: 2.0
 # Author: Eric Benner
 
 # Set the time and date

@@ -1,7 +1,6 @@
 #!/bin/bash
 
 # Desktop Installaltion Script
-# Version: 2.0
 # Author: Eric Benner
 
 # Assign arguments

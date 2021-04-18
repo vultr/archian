@@ -1,7 +1,6 @@
 #!/bin/bash
 
 # ISO Installaltion Script
-# Version: 2.0
 # Author: Eric Benner
 
 set -eo pipefail
