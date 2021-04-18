@@ -132,5 +132,5 @@ mv arch-install.log /mnt/var/log/
 # Announce
 echo "----------------------------------------"
 echo "Finished installing!"
-echo "Go ahead and reboot and unmount you ISO"
+echo "Go ahead and reboot and unmount your ISO"
 echo "----------------------------------------"
