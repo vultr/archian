@@ -23,6 +23,8 @@ function installScripted {
   PACKAGES=$(cat ${FILE})
   IFS=$IFSB
 
+  PACKAGES=($(comm -3 <(printf "%s\n" "${PACKAGES[@]}" | sort) <(printf "%s\n" "${EXCLUDE[@]}" | sort) | sort -n))
+
   for package in "${PACKAGES[@]}"
     do
         PACKAGES=$(echo ${PACKAGES} | sed "s/{$package} //g")
@@ -47,6 +49,8 @@ function installScriptedOptional {
   EXCLUDE=($(jq -r ".packages.exclude | @sh" /root/archian/archian.json | sed "s/'//g"))
   PACKAGES=$(cat ${FILE})
   IFS=$IFSB
+
+  PACKAGES=($(comm -3 <(printf "%s\n" "${PACKAGES[@]}" | sort) <(printf "%s\n" "${EXCLUDE[@]}" | sort) | sort -n))
 
   for package in "${PACKAGES[@]}"
     do
