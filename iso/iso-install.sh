@@ -5,12 +5,6 @@
 
 set -eo pipefail
 
-# Fix mirrors
-/bin/rm -f /etc/pacman.d/mirrorlist
-curl -o '/etc/pacman.d/mirrorlist' 'https://archlinux.org/mirrorlist/?country=all&protocol=http&protocol=https&ip_version=4&ip_version=6&use_mirror_status=on'
-sed -i -e 's/#Server/Server/g' /etc/pacman.d/mirrorlist
-pacman -Sy pacman-mirrorlist --noconfirm
-
 # Check for installation script
 if [ -f ../archian.json ]; then
     mv ../archian.json ./

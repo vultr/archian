@@ -13,10 +13,16 @@ mount -t ramfs -o size=64mb ramfs /home
 cd /root
 
 # Fix mirrors
-/bin/rm -f /etc/pacman.d/mirrorlist
+set +eo pipefail
+/bin/mv /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.bk
 curl -o '/etc/pacman.d/mirrorlist' 'https://archlinux.org/mirrorlist/?country=all&protocol=http&protocol=https&ip_version=4&ip_version=6&use_mirror_status=on'
 sed -i -e 's/#Server/Server/g' /etc/pacman.d/mirrorlist
 pacman -Sy pacman-mirrorlist --noconfirm
+if [ "$?" != "0" ]; then
+    /bin/rm -f /etc/pacman.d/mirrorlist
+    /bin/mv /etc/pacman.d/mirrorlist.bk /etc/pacman.d/mirrorlist
+fi
+set -eo pipefail
 
 # Install git
 pacman -Sy --noconfirm
