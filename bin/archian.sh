@@ -3,6 +3,8 @@
 # Archian
 # Author: Eric Benner
 
+set -eo pipefail
+
 # Set the time and date
 timedatectl set-ntp true
 
@@ -115,7 +117,8 @@ if [ "$SCRIPTED" == "1" ]; then
 fi
 
 # Build chroot installer
-cp -rf ../archian /mnt/root/
+mkdir -p /mnt/root/
+cp -rf ../archian /mnt/root/archian
 
 # Create bootstrap
 echo '#!/bin/bash' >> /mnt/root/archian/bootstrap.sh
