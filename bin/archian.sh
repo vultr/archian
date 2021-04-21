@@ -129,7 +129,9 @@ chmod +x /mnt/root/archian/bootstrap.sh
 arch-chroot /mnt /root/archian/bootstrap.sh
 
 # Move log
-mv arch-install.log /mnt/var/log/
+if [ -f arch-install.log ]; then
+  mv arch-install.log /mnt/var/log/
+fi
 
 # Announce
 echo "----------------------------------------"
