@@ -61,12 +61,33 @@ fi
 # Format drive
 if [ "$EFI" = true ] ; then
   mkfs.ext4 -F "$drive"*2
+else
+  mkfs.ext4 -F "$drive"*1
+fi
+
+# Vultr Raid1 selection
+if [ "$SCRIPTED" == "1" ] && [ "$(is_vultr)" == "1" ]; then
+  raid1=$(getValue "raid1" "archian.json")
+  if [ "${raid1}" == "true" ]; then
+    mdadm --create --verbose --level=1 --metadata=1.2 --raid-devices=1 /dev/md/md0 /dev/vda1 --force
+  fi
+fi
+
+# Mount drive
+if [ "$EFI" = true ] ; then
   mount "$drive"*2 /mnt
   mkdir -p /mnt/boot/efi
   mount "$drive"*1 /mnt/boot/efi
 else
-  mkfs.ext4 -F "$drive"*1
-  mount "$drive"*1 /mnt
+  MOUNTDRIVE="$drive"*1
+  if [ "$SCRIPTED" == "1" ] && [ "$(is_vultr)" == "1" ]; then
+    raid1=$(getValue "raid1" "archian.json")
+    if [ "${raid1}" == "true" ]; then
+      MOUNTDRIVE="/dev/md0"
+    fi
+  fi
+
+  mount "$MOUNTDRIVE" /mnt
 fi
 
 ALLOC="8G"
@@ -142,3 +163,7 @@ echo "----------------------------------------"
 echo "Finished installing!"
 echo "Go ahead and reboot and unmount your ISO"
 echo "----------------------------------------"
+
+if [ "$(is_vultr)" == "1" ]; then
+  reboot -f -i now
+fi
