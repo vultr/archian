@@ -10,12 +10,12 @@
             "jq",
             "nano"
         ],
-        "virt": "yes",
-        "nvidia": "yes",
-        "amd": "yes",
+        "virt": "true",
+        "nvidia": "true",
+        "amd": "true",
         "wine": "stable",
         "desktopEnvironment": "kde",
-        "dev": "yes",
-        "blackarch": "yes"
+        "dev": "true",
+        "blackarch": "true"
     }
 }
