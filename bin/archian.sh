@@ -49,37 +49,41 @@ if [ "$EFI" = true ] ; then
   parted --script $drive mklabel gpt
   parted --script $drive mkpart primary fat32 1MiB 261MiB
   parted --script $drive set 1 esp on
-  parted --script $drive mkpart primary linux-swap 261MiB 8.3GiB
-  parted --script $drive mkpart primary ext4 8.3GiB 100%
+  parted --script $drive mkpart primary ext4 261MiB 100%
   mkfs.fat -F32 "$drive"*1
 else
   parted --script $drive mklabel msdos
-  parted --script $drive mkpart primary linux-swap 1MiB 8GiB
-  parted --script $drive mkpart primary ext4 8GiB 100%
-  parted --script $drive set 2 boot on
+  parted --script $drive mkpart primary ext4 1MiB 100%
+  parted --script $drive set 1 boot on
   mkfs.ext4 -F "$drive"*1
 fi
 
 # Format drive
 if [ "$EFI" = true ] ; then
-  mkswap "$drive"*2
-  swapon "$drive"*2
-  mkfs.ext4 -F "$drive"*3
-  mount "$drive"*3 /mnt
+  mkfs.ext4 -F "$drive"*2
+  mount "$drive"*2 /mnt
   mkdir -p /mnt/boot/efi
   mount "$drive"*1 /mnt/boot/efi
 else
-  mkswap "$drive"*1
-  swapon "$drive"*1
-  mkfs.ext4 -F "$drive"*2
-  mount "$drive"*2 /mnt
+  mkfs.ext4 -F "$drive"*1
+  mount "$drive"*1 /mnt
 fi
+
+ALLOC="8G"
+if [ "$(is_vultr)" == "1" ]; then
+  ALLOC="4G"
+fi
+
+fallocate -l ${ALLOC} /mnt/swapfile
+chmod 600 /mnt/swapfile
+mkswap /mnt/swapfile
 
 # Install base
 pacstrap /mnt base linux linux-firmware --noconfirm
 
 # Generate fstab
 genfstab -U /mnt >> /mnt/etc/fstab
+echo "/swapfile swap swap defaults 0 0" >> /mnt/etc/fstab
 
 # Installer selection
 if [ "$SCRIPTED" == "1" ]; then

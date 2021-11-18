@@ -15,6 +15,14 @@
 # Functions
 #
 
+function is_vultr {
+    if [ "$(cat /sys/class/dmi/id/sys_vendor)" == "Vultr" ]; then
+        echo "1"
+        return
+    fi
+    echo "0"
+}
+
 function install_pkgs {
     packs=$@
     runuser -l installer -c "trizen -Sy --noconfirm ${packs}"
