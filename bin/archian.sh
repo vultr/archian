@@ -17,6 +17,20 @@ if [ "$SCRIPTED" == "1" ] && [ "$(is_vultr)" == "1" ]; then
   systemctl mask sshd
 fi
 
+# Installer selection
+if [ "$SCRIPTED" == "1" ]; then
+  files=$(getValue "files" "archian.json")
+  if [ ! -z "${files}" ]; then
+    wget "${files}" -O files.zip
+    unzip -o files.zip
+  fi
+fi
+
+if [ -f "archian-pre.sh" ]; then
+  chmod +x ./archian-pre.sh
+  ./archian-pre.sh
+fi
+
 # Install dependencies for installer
 if [ ! -f /usr/bin/dialog ]; then
   pacman -S dialog unzip wget --noconfirm
@@ -128,23 +142,15 @@ else
                   3>&1 1>&2 2>&3 3>&-)
 fi
 
-# Installer selection
-if [ "$SCRIPTED" == "1" ]; then
-  files=$(getValue "files" "archian.json")
-  if [ ! -z "${files}" ]; then
-    wget "${files}" -O files.zip
-    unzip -o files.zip
+# Add script files to system
+if [ -f "archian-boot.sh" ]; then
+    mv archian-boot.sh ./rootfs/opt/boot.sh
+    chmod +x ./rootfs/opt/boot.sh
+fi
 
-    if [ -f "archian-boot.sh" ]; then
-        mv archian-boot.sh ./rootfs/opt/boot.sh
-        chmod +x ./rootfs/opt/boot.sh
-    fi
-
-    if [ -f "archian-post.sh" ]; then
-        mv archian-post.sh ./bin/archian-post.sh
-        chmod +x ./bin/archian-post.sh
-    fi
-  fi
+if [ -f "archian-post.sh" ]; then
+    mv archian-post.sh ./bin/archian-post.sh
+    chmod +x ./bin/archian-post.sh
 fi
 
 # Build chroot installer

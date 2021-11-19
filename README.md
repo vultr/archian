@@ -46,8 +46,6 @@ Use the ISO from the **Archian Media** section.
 ### Scripted Installs
 
 #### archian.json
-**WARNING** - This is still an untested WIP feature
-
 You can now script the install entirely with archian.json. An example is available in templates/example.json. This defines everything
 before hand about the install process. Package configuration is exclusionary but you can disable all packages. Black arch is for the
 blackarch install only.
@@ -72,11 +70,16 @@ rootfs/
   etc/
 archian-boot.sh
 archian-post.sh
+archian-pre.sh
 ```
 
 #### archian-boot.sh
 The boot script is a bash script named archian-boot.sh. This executes on first boot after the archian boot process runs. The boot script
 is entirely optional. This does not require archian.json. Everything is logged to /var/log/archboot.log.
+
+#### archian-pre.sh
+This script is executed before the chroot or any action is taken. Useful for special installed env changes. This script is optional. This does not
+require archian.json.
 
 #### archian-post.sh
 This script is executed after everything is done, while still chrooted, but before the installer is removed. Use the following to install
