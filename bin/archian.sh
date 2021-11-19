@@ -159,16 +159,16 @@ chmod +x /mnt/root/archian/bootstrap.sh
 # Chroot in and run second part
 arch-chroot /mnt /root/archian/bootstrap.sh
 
-# Move log
-if [ -f arch-install.log ]; then
-  mv arch-install.log /mnt/var/log/
-fi
-
 # Announce
 echo "----------------------------------------"
 echo "Finished installing!"
 echo "Go ahead and reboot and unmount your ISO"
 echo "----------------------------------------"
+
+# Move log
+if [ -f arch-install.log ]; then
+  mv arch-install.log /mnt/var/log/
+fi
 
 if [ "$(is_vultr)" == "1" ]; then
   reboot -f -i now

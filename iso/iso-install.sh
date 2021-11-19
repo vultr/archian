@@ -28,7 +28,7 @@ fi
 chmod +x bin/*
 
 if [ "$LOGGING" == "true" ]; then
-    ./bin/archian.sh > arch-install.log
+    ./bin/archian.sh > arch-install.log 2>&1
 else
     ./bin/archian.sh
 fi
