@@ -11,6 +11,11 @@ timedatectl set-ntp true
 # Import common
 . lib/common.sh
 
+# Vultr Raid1 selection
+if [ "$SCRIPTED" == "1" ] && [ "$(is_vultr)" == "1" ]; then
+  systemctl disable --now ssh
+fi
+
 # Install dependencies for installer
 if [ ! -f /usr/bin/dialog ]; then
   pacman -S dialog unzip wget --noconfirm
