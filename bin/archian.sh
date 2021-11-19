@@ -14,6 +14,7 @@ timedatectl set-ntp true
 # Vultr Raid1 selection
 if [ "$SCRIPTED" == "1" ] && [ "$(is_vultr)" == "1" ]; then
   systemctl disable --now sshd
+  systemctl mask sshd
 fi
 
 # Install dependencies for installer
@@ -84,7 +85,7 @@ if [ "$EFI" = true ] ; then
   mkdir -p /mnt/boot/efi
   mount "$drive"*1 /mnt/boot/efi
 else
-  MOUNTDRIVE="$drive"*1
+  MOUNTDRIVE="$(ls "$drive"*1)"
   if [ "$SCRIPTED" == "1" ] && [ "$(is_vultr)" == "1" ]; then
     raid1=$(getValue "raid1" "archian.json")
     if [ "${raid1}" == "true" ]; then

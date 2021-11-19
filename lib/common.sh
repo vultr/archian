@@ -20,6 +20,12 @@ function is_vultr {
         echo "1"
         return
     fi
+
+    if [[ "$(cat /proc/cmdline)" == *"vultr"* ]]; then
+        echo "1"
+        return
+    fi
+
     echo "0"
 }
 
