@@ -13,7 +13,7 @@ timedatectl set-ntp true
 
 # Vultr Raid1 selection
 if [ "$SCRIPTED" == "1" ] && [ "$(is_vultr)" == "1" ]; then
-  systemctl disable --now ssh
+  systemctl disable --now sshd
 fi
 
 # Install dependencies for installer
