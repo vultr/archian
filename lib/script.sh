@@ -24,6 +24,7 @@ function installScripted {
   IFS=$IFSB
 
   PACKAGES=($(comm -3 <(printf "%s\n" "${PACKAGES[@]}" | sort) <(printf "%s\n" "${EXCLUDE[@]}" | sort) | sort -n))
+  PACKAGES="${PACKAGES[@]}"
 
   runuser -l installer -c "trizen -Sy --noconfirm ${PACKAGES[@]}"
 }
@@ -44,6 +45,7 @@ function installScriptedOptional {
   IFS=$IFSB
 
   PACKAGES=($(comm -3 <(printf "%s\n" "${PACKAGES[@]}" | sort) <(printf "%s\n" "${EXCLUDE[@]}" | sort) | sort -n))
+  PACKAGES="${PACKAGES[@]}"
 
   runuser -l installer -c "trizen -Sy --noconfirm ${PACKAGES[@]}"
 }

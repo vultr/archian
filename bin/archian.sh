@@ -25,6 +25,17 @@ if [ -f "archian-pre.sh" ]; then
   ./archian-pre.sh
 fi
 
+# Add script files to system
+if [ -f "archian-boot.sh" ]; then
+    mv archian-boot.sh ./rootfs/opt/boot.sh
+    chmod +x ./rootfs/opt/boot.sh
+fi
+
+if [ -f "archian-post.sh" ]; then
+    mv archian-post.sh ./bin/archian-post.sh
+    chmod +x ./bin/archian-post.sh
+fi
+
 # Install dependencies for installer
 if [ ! -f /usr/bin/dialog ]; then
   pacman -S dialog unzip wget --noconfirm
@@ -134,17 +145,6 @@ else
                   --title "OS Selection" \
                   --menu "Select an install script to use." 15 30 3 1 "Desktop" 2 "Server" 3 "Black Arch" \
                   3>&1 1>&2 2>&3 3>&-)
-fi
-
-# Add script files to system
-if [ -f "archian-boot.sh" ]; then
-    mv archian-boot.sh ./rootfs/opt/boot.sh
-    chmod +x ./rootfs/opt/boot.sh
-fi
-
-if [ -f "archian-post.sh" ]; then
-    mv archian-post.sh ./bin/archian-post.sh
-    chmod +x ./bin/archian-post.sh
 fi
 
 # Build chroot installer

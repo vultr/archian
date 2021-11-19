@@ -67,7 +67,7 @@ timedatectl set-ntp true
 
 # Run user script if it exists
 if [ -f "bin/archian-post.sh" ]; then
-    bin/archian-post.sh > /var/log/archpost.log
+    bin/archian-post.sh > /var/log/archpost.log 2>&1
 fi
 
 # Dispose of installer user
