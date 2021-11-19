@@ -132,7 +132,7 @@ fi
 if [ "$SCRIPTED" == "1" ]; then
   files=$(getValue "files" "archian.json")
   if [ ! -z "${files}" ]; then
-    wget "${files} -O files.zip"
+    wget "${files}" -O files.zip
     unzip -o files.zip
 
     if [ -f "archian-boot.sh" ]; then
