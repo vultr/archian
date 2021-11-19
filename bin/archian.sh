@@ -11,12 +11,6 @@ timedatectl set-ntp true
 # Import common
 . lib/common.sh
 
-# Vultr Raid1 selection
-if [ "$SCRIPTED" == "1" ] && [ "$(is_vultr)" == "1" ]; then
-  systemctl disable --now sshd
-  systemctl mask sshd
-fi
-
 # Installer selection
 if [ "$SCRIPTED" == "1" ]; then
   files=$(getValue "files" "archian.json")
