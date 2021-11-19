@@ -20,19 +20,12 @@ function installScripted {
   IFSB=$IFS
   IFS=$' '
   EXCLUDE=($(jq -r ".packages.exclude | @sh" /root/archian/archian.json | sed "s/'//g"))
-  PACKAGES=$(cat ${FILE})
+  PACKAGES=($(cat ${FILE}))
   IFS=$IFSB
 
   PACKAGES=($(comm -3 <(printf "%s\n" "${PACKAGES[@]}" | sort) <(printf "%s\n" "${EXCLUDE[@]}" | sort) | sort -n))
 
-  for package in "${PACKAGES[@]}"
-    do
-        PACKAGES=$(echo ${PACKAGES} | sed "s/{$package} //g")
-        PACKAGES=$(echo ${PACKAGES} | sed "s/ {$package}//g")
-        PACKAGES=$(echo ${PACKAGES} | sed "s/{$package} //g")
-    done
-
-  runuser -l installer -c "trizen -Sy --noconfirm ${PACKAGES}"
+  runuser -l installer -c "trizen -Sy --noconfirm ${PACKAGES[@]}"
 }
 
 function installScriptedOptional {
@@ -47,17 +40,10 @@ function installScriptedOptional {
   IFSB=$IFS
   IFS=$' '
   EXCLUDE=($(jq -r ".packages.exclude | @sh" /root/archian/archian.json | sed "s/'//g"))
-  PACKAGES=$(cat ${FILE})
+  PACKAGES=($(cat ${FILE}))
   IFS=$IFSB
 
   PACKAGES=($(comm -3 <(printf "%s\n" "${PACKAGES[@]}" | sort) <(printf "%s\n" "${EXCLUDE[@]}" | sort) | sort -n))
 
-  for package in "${PACKAGES[@]}"
-    do
-        PACKAGES=$(echo ${PACKAGES} | sed "s/{$package} //g")
-        PACKAGES=$(echo ${PACKAGES} | sed "s/ {$package}//g")
-        PACKAGES=$(echo ${PACKAGES} | sed "s/{$package} //g")
-    done
-
-  runuser -l installer -c "trizen -Sy --noconfirm ${PACKAGES}"
+  runuser -l installer -c "trizen -Sy --noconfirm ${PACKAGES[@]}"
 }
