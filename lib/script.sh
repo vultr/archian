@@ -26,7 +26,7 @@ function installScripted {
   PACKAGES=($(comm -3 <(printf "%s\n" "${PACKAGES[@]}" | sort) <(printf "%s\n" "${EXCLUDE[@]}" | sort) | sort -n))
   PACKAGES="${PACKAGES[@]}"
 
-  runuser -l installer -c "trizen -Sy --noconfirm ${PACKAGES[@]}"
+  runuser -l installer -c "trizen -Sy --noconfirm ${PACKAGES}"
 }
 
 function installScriptedOptional {
@@ -47,5 +47,5 @@ function installScriptedOptional {
   PACKAGES=($(comm -3 <(printf "%s\n" "${PACKAGES[@]}" | sort) <(printf "%s\n" "${EXCLUDE[@]}" | sort) | sort -n))
   PACKAGES="${PACKAGES[@]}"
 
-  runuser -l installer -c "trizen -Sy --noconfirm ${PACKAGES[@]}"
+  runuser -l installer -c "trizen -Sy --noconfirm ${PACKAGES}"
 }
