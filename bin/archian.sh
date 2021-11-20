@@ -176,4 +176,3 @@ fi
 if [ "$SCRIPTED" == "1" ] && [ "$(getValue "reboot" "archian.json")" == "true" ]; then
   reboot -f -i now
 fi
-yes | mdadm --create --verbose --level=1 --metadata=1.2 --raid-devices=1 /dev/md0 /dev/vda1 --force
