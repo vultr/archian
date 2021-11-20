@@ -115,6 +115,10 @@ function configureHosts {
 
 function buildInitramfs {
     # Make initramfs
+    if [ -f /raid1 ]; then
+        rm -f /raid1
+        sed -i -e 's/HOOKS=(base udev autodetect modconf block filesystems keyboard fsck)/HOOKS=(base udev autodetect modconf block mdadm filesystems keyboard fsck)/g' /etc/mkinitcpio.conf
+    fi
     mkinitcpio -p linux
 }
 

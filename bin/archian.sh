@@ -100,7 +100,7 @@ if [ "$SCRIPTED" == "1" ] && [ "$(is_vultr)" == "1" ]; then
     set -eo pipefail
   fi
 fi
-
+/raid1
 # Mount drive
 if [ "$EFI" = true ] ; then
   mount "$drive"*2 /mnt
@@ -109,13 +109,17 @@ if [ "$EFI" = true ] ; then
 else
   MOUNTDRIVE="$(ls "$drive"*1)"
   if [ "$SCRIPTED" == "1" ] && [ "$(is_vultr)" == "1" ]; then
-    raid1=$(getValue "raid1" "archian.json")
     if [ "${raid1}" == "true" ]; then
       MOUNTDRIVE="/dev/md0"
     fi
   fi
 
   mount "$MOUNTDRIVE" /mnt
+  if [ "$SCRIPTED" == "1" ] && [ "$(is_vultr)" == "1" ]; then
+    if [ "${raid1}" == "true" ]; then
+      touch /mnt/raid1
+    fi
+  fi
 fi
 
 ALLOC="8G"
@@ -131,7 +135,14 @@ chmod 600 /mnt/swapfile
 mkswap /mnt/swapfile
 
 # Install base
-pacstrap /mnt base linux linux-firmware --noconfirm
+EXTRPKG=""
+if [ "$SCRIPTED" == "1" ] && [ "$(is_vultr)" == "1" ]; then
+  if [ "${raid1}" == "true" ]; then
+    EXTRPKG="${EXTRPKG}mdadm "
+  fi
+fi
+
+pacstrap /mnt base linux linux-firmware ${EXTRPKG}--noconfirm
 
 # Generate fstab
 genfstab -U /mnt >> /mnt/etc/fstab
