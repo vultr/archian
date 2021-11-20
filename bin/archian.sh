@@ -116,8 +116,11 @@ else
 fi
 
 ALLOC="8G"
-if [ "$(is_vultr)" == "1" ]; then
-  ALLOC="4G"
+if [ "$SCRIPTED" == "1" ]; then
+  ALLOC_V=$(getValue "swap" "archian.json")
+  if ! [ -z "$ALLOC_V" ]; then
+    ALLOC=${ALLOC_V}
+  fi
 fi
 
 fallocate -l ${ALLOC} /mnt/swapfile
@@ -170,6 +173,7 @@ if [ -f arch-install.log ]; then
   mv arch-install.log /mnt/var/log/
 fi
 
-if [ "$(is_vultr)" == "1" ]; then
+if [ "$SCRIPTED" == "1" ] && [ "$(getValue "reboot" "archian.json")" == "true" ]; then
   reboot -f -i now
 fi
+yes | mdadm --create --verbose --level=1 --metadata=1.2 --raid-devices=1 /dev/md0 /dev/vda1 --force

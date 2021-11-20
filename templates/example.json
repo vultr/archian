@@ -5,6 +5,8 @@
     "rootPassword": "",
     "user": "",
     "userPassword": "",
+    "reboot": "true",
+    "swap": "8GB",
     "packages": {
         "exclude": [
             "jq",
