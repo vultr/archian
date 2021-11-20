@@ -94,7 +94,7 @@ fi
 if [ "$SCRIPTED" == "1" ] && [ "$(is_vultr)" == "1" ]; then
   raid1=$(getValue "raid1" "archian.json")
   if [ "${raid1}" == "true" ]; then
-    mdadm --create --verbose --level=1 --metadata=1.2 --raid-devices=1 /dev/md0 /dev/vda1 --force
+    yes | mdadm --create --verbose --level=1 --metadata=1.2 --raid-devices=1 /dev/md0 /dev/vda1 --force
   fi
 fi
 
