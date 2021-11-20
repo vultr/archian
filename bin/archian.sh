@@ -100,7 +100,7 @@ if [ "$SCRIPTED" == "1" ] && [ "$(is_vultr)" == "1" ]; then
     set -eo pipefail
   fi
 fi
-/raid1
+
 # Mount drive
 if [ "$EFI" = true ] ; then
   mount "$drive"*2 /mnt
