@@ -306,6 +306,7 @@ if [ -f "$FILE" ]; then
     if [ ! -f /usr/bin/jq ]; then
         pacman -S jq --noconfirm
     fi
+    set -x
 else
     SCRIPTED=0
 fi
