@@ -1,1 +1,1 @@
-netbeans intellij-idea-ultimate-edition arduino vscode
+netbeans intellij-idea-ultimate-edition arduino vscode android-sdk-build-tools android-apktool

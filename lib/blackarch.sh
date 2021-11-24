@@ -6,6 +6,9 @@ function blackArchSetup {
     installOptional "AMDGPU" "amdgpu"
     installOptional "Developement" "dev"
     installOptional "Virtualization" "virt"
+    installOptional "Docker" "docker"
+    installOptional "LXD" "lxd"
+    installOptional "Extras" "extras"
     installWine
 
     curl -O https://blackarch.org/strap.sh

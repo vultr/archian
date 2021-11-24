@@ -18,6 +18,10 @@
         "wine": "stable",
         "desktopEnvironment": "kde",
         "dev": "true",
-        "blackarch": "true"
+        "blackarch": "true",
+        "docker": "true",
+        "extras": "true",
+        "lxd": "true",
+        "desktopextras": "true"
     }
 }

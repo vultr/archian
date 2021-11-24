@@ -6,6 +6,10 @@ function desktopSetup {
     installOptional "AMDGPU" "amdgpu"
     installOptional "Developement" "dev"
     installOptional "Virtualization" "virt"
+    installOptional "Docker" "docker"
+    installOptional "LXD" "lxd"
+    installOptional "Desktop Extras" "desktopextras"
+    installOptional "Extras" "extras"
     installWine
 
     if [ "$SCRIPTED" == "1" ]; then

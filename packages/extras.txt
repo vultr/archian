@@ -1,0 +1,1 @@
+nmap gotop ccze sshuttle sshfs
