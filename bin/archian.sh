@@ -16,7 +16,9 @@ if [ "$SCRIPTED" == "1" ]; then
   files=$(getValue "files" "archian.json")
   if [ ! -z "${files}" ]; then
     wget "${files}" -O files.zip
-    unzip -o files.zip
+    unzip -o -d ./files files.zip
+    cp -rf ./files/* ./
+    rm -rf ./files
   fi
 fi
 
