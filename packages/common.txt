@@ -1,1 +1,1 @@
-xorg-xauth xorg-xhost networkmanager ufw sudo openssh cronie netcat vim nano ethtool wget curl git nfs-utils bind-tools screen jq iotop expect jdk8-openjdk jdk11-openjdk php lsof cloud-utils ebtables net-tools dhclient
+xorg-xauth xorg-xhost networkmanager man-db ufw sudo openssh cronie netcat vim nano ethtool wget curl git nfs-utils bind-tools screen jq iotop expect jdk8-openjdk jdk11-openjdk php lsof cloud-utils ebtables net-tools dhclient
