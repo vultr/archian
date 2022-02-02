@@ -61,6 +61,10 @@ or
 
 archian_json=/path/to/file
 
+or
+
+override the domain name "http://installer.archian.com" and generate (or provide a static) archian.json from there.
+
 Note the "files" option in the json format. This is to provide a link to download the rootfs directory and scripts. This needs to be a
 zip file as of right now. The structure of this should be as follows.
 
