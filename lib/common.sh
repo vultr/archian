@@ -209,11 +209,11 @@ function addUser {
 }
 
 function configureSudo {
-    sed -i -e 's/# %wheel ALL=(ALL) ALL/%wheel ALL=(ALL) ALL/' /etc/sudoers
+    sed -i -e 's/# %wheel ALL=(ALL\:ALL) ALL/%wheel ALL=(ALL\:ALL) ALL/' /etc/sudoers
 }
 
 function setupInstaller {
-    sed -i -e 's/# %wheel ALL=(ALL) NOPASSWD\: ALL/%wheelnpw ALL=(ALL) NOPASSWD\: ALL/' /etc/sudoers
+    sed -i -e 's/# %wheel ALL=(ALL\:ALL) NOPASSWD\: ALL/%wheelnpw ALL=(ALL\:ALL) NOPASSWD\: ALL/' /etc/sudoers
     groupadd wheelnpw
     useradd installer
     usermod -aG wheelnpw installer
