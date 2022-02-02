@@ -5,6 +5,11 @@
 
 set -eo pipefail
 
+# Fix space issue
+mount -t ramfs -o size=64mb ramfs /tmp
+mount -t ramfs -o size=64mb ramfs /home
+mount -o remount,size=400M /run/archiso/cowspace
+
 # Check for installation script
 if [ -f ../archian.json ]; then
     mv ../archian.json ./
