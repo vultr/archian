@@ -149,10 +149,10 @@ function setRootPassword {
             break
         fi
         done
-    fi
 
-    # Set root password
-    echo root:"$rootpw" | chpasswd
+        # Set root password
+        echo root:"$rootpw" | chpasswd
+    fi
 }
 
 function addUser {

@@ -8,6 +8,7 @@ set -eo pipefail
 # Fix issue with space
 mount -t ramfs -o size=64mb ramfs /tmp
 mount -t ramfs -o size=64mb ramfs /home
+mount -o remount,size=400M /run/archiso/cowspace
 
 # Go to root
 cd /root

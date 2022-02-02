@@ -3,6 +3,11 @@
 # Manual Installaltion Script
 # Author: Eric Benner
 
+# Fix space issue
+mount -t ramfs -o size=64mb ramfs /tmp
+mount -t ramfs -o size=64mb ramfs /home
+mount -o remount,size=400M /run/archiso/cowspace
+
 chmod +x bin/*
 
 # Check for installation script
