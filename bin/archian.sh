@@ -150,7 +150,7 @@ pacstrap /mnt base linux linux-firmware ${EXTRPKG}--noconfirm
 
 # Generate fstab
 blkid
-genfstab -P PARTUUID /mnt > /mnt/etc/fstab
+genfstab -t PARTUUID /mnt > /mnt/etc/fstab
 if [ "$(is_vultr)" != "1" ]; then
   echo "/swapfile swap swap defaults 0 0" >> /mnt/etc/fstab
 fi
