@@ -124,17 +124,19 @@ else
   fi
 fi
 
-ALLOC="8G"
-if [ "$SCRIPTED" == "1" ]; then
-  ALLOC_V=$(getValue "swap" "archian.json")
-  if ! [ -z "$ALLOC_V" ]; then
-    ALLOC=${ALLOC_V}
+if [ "$(is_vultr)" != "1" ]; then
+  ALLOC="8G"
+  if [ "$SCRIPTED" == "1" ]; then
+    ALLOC_V=$(getValue "swap" "archian.json")
+    if ! [ -z "$ALLOC_V" ]; then
+      ALLOC=${ALLOC_V}
+    fi
   fi
-fi
 
-fallocate -l ${ALLOC} /mnt/swapfile
-chmod 600 /mnt/swapfile
-mkswap /mnt/swapfile
+  fallocate -l ${ALLOC} /mnt/swapfile
+  chmod 600 /mnt/swapfile
+  mkswap /mnt/swapfile
+fi
 
 # Install base
 EXTRPKG=""
@@ -147,8 +149,11 @@ fi
 pacstrap /mnt base linux linux-firmware ${EXTRPKG}--noconfirm
 
 # Generate fstab
-genfstab -U /mnt >> /mnt/etc/fstab
-echo "/swapfile swap swap defaults 0 0" >> /mnt/etc/fstab
+blkid
+genfstab -P PARTUUID /mnt > /mnt/etc/fstab
+if [ "$(is_vultr)" != "1" ]; then
+  echo "/swapfile swap swap defaults 0 0" >> /mnt/etc/fstab
+fi
 
 # Installer selection
 if [ "$SCRIPTED" == "1" ]; then
