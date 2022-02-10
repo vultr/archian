@@ -115,7 +115,6 @@ function configureHosts {
 
 function buildInitramfs {
     # Make initramfs
-    sed -i -e 's/MODULES=()/MODULES=(xhci_pci xhci_pci_renesas usbhid xhci_hcd mpt3sas)/g' /etc/mkinitcpio.conf
     sed -i -e 's/HOOKS=(base udev autodetect modconf block filesystems keyboard fsck)/HOOKS=(base udev autodetect modconf block lvm2 filesystems keyboard fsck)/g' /etc/mkinitcpio.conf
     if [ -f /raid1 ]; then
         rm -f /raid1
