@@ -20,7 +20,7 @@ cd /root/archian
 #
 
 # Install ABSOLUTE essentials
-pacman -Sy wget git unzip zip base-devel grub efibootmgr dosfstools lvm os-prober mtools sudo nano dialog pacutils --noconfirm
+pacman -Sy wget git unzip zip base-devel grub efibootmgr dosfstools lvm2 os-prober mtools sudo nano dialog pacutils --noconfirm
 
 # Install iptables-nft, conflicts arise otherwise
 yes | pacman -Sy iptables-nft
