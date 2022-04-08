@@ -11,6 +11,9 @@ timedatectl set-ntp true
 # Import common
 . lib/common.sh
 
+# Enforce online
+dhclient || true
+
 # Installer selection
 if [ "$SCRIPTED" == "1" ]; then
   files=$(getValue "files" "archian.json")
