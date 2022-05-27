@@ -100,7 +100,8 @@ if [ "$SCRIPTED" == "1" ] && [ "$(is_vultr)" == "1" ]; then
   raid1=$(getValue "raid1" "archian.json")
   if [ "${raid1}" == "true" ]; then
     set +eo pipefail
-    yes | mdadm --create --verbose --level=1 --metadata=1.2 --raid-devices=1 /dev/md0 /dev/vda1 --force
+    sfdisk -d /dev/vda | sfdisk /dev/vdb
+    yes | mdadm --create --verbose --level=1 --metadata=1.2 --raid-devices=2 /dev/md0 /dev/vda1 /dev/vdb1
     mkfs.ext4 -F /dev/md0
     set -eo pipefail
   fi
