@@ -150,7 +150,7 @@ if [ "$SCRIPTED" == "1" ] && [ "$(is_vultr)" == "1" ]; then
   fi
 fi
 
-pacstrap /mnt base linux linux-firmware ${EXTRPKG}--noconfirm
+pacstrap /mnt base linux-lts linux-lts-headers linux-firmware ${EXTRPKG}--noconfirm
 
 # Generate fstab
 blkid
