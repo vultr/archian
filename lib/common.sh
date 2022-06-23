@@ -120,7 +120,7 @@ function buildInitramfs {
         rm -f /raid1
         sed -i -e 's/HOOKS=(base udev autodetect modconf block lvm2 filesystems keyboard fsck)/HOOKS=(base udev autodetect modconf block lvm2 mdadm filesystems keyboard fsck)/g' /etc/mkinitcpio.conf
     fi
-    mkinitcpio -p linux
+    mkinitcpio -p linux-lts
 }
 
 function setRootPassword {
