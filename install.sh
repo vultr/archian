@@ -7,9 +7,6 @@
 mount -t ramfs -o size=64mb ramfs /tmp
 mount -t ramfs -o size=64mb ramfs /home
 
-# Refresh keys
-pacman-key --refresh-keys
-
 chmod +x bin/*
 
 # Check for installation script

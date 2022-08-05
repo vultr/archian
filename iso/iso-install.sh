@@ -5,9 +5,6 @@
 
 set -eo pipefail
 
-# Refresh keys
-pacman-key --refresh-keys
-
 # Check for installation script
 if [ -f ../archian.json ]; then
     mv ../archian.json ./
