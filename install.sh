@@ -7,6 +7,12 @@
 mount -t ramfs -o size=64mb ramfs /tmp
 mount -t ramfs -o size=64mb ramfs /home
 
+# Refresh keys
+rm -rf /etc/pacman.d/gnupg/*.gpg
+pacman-key --init
+pacman-key --populate
+pacman -Sy
+
 chmod +x bin/*
 
 # Check for installation script

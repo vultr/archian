@@ -5,6 +5,12 @@
 
 set -eo pipefail
 
+# Refresh keys
+rm -rf /etc/pacman.d/gnupg/*.gpg
+pacman-key --init
+pacman-key --populate
+pacman -Sy
+
 # Check for installation script
 if [ -f ../archian.json ]; then
     mv ../archian.json ./
