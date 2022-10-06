@@ -60,11 +60,10 @@ esac
 
 # Configure DHCP and Resolv
 cat << EOF > /etc/systemd/network/20-wired.network
-[Match]
-Name=e*
-
-[Network]
-DHCP=yes
+nameserver 108.61.10.10
+nameserver 8.8.8.8
+nameserver 2001:19f0:300:1704::6
+nameserver 2001:4860:4860::8888
 EOF
 
 # Enable/Disable services
@@ -82,6 +81,38 @@ fi
 
 # Dispose of installer user
 removeInstaller
+
+# Vultr specific dns (these get weird when we change them later)
+mkdir -p /etc/resolvconf/resolv.conf.d
+touch /etc/resolvconf/resolv.conf.d/base
+
+if [ "$(is_vultr)" == "1" ]; then
+  cat << EOF > /etc/systemd/resolved.conf
+[Resolve]
+DNS=108.61.10.10 2001:19f0:300:1704::6
+FallbackDNS=8.8.8.8 2001:4860:4860::8888
+ReadEtcHosts=yes
+EOF
+  cat << EOF > /etc/resolv.conf
+nameserver 108.61.10.10
+nameserver 8.8.8.8
+nameserver 2001:19f0:300:1704::6
+nameserver 2001:4860:4860::8888
+EOF
+else
+  cat << EOF > /etc/systemd/resolved.conf
+[Resolve]
+DNS=8.8.8.8 2001:4860:4860::8888
+FallbackDNS=8.8.4.4 2001:4860:4860::8844
+ReadEtcHosts=yes
+EOF
+  cat << EOF > /etc/resolv.conf
+nameserver 8.8.8.8
+nameserver 8.8.4.4
+nameserver 2001:4860:4860::8888
+nameserver 2001:4860:4860::8844
+EOF
+fi
 
 # Cleanup
 cleanup

@@ -30,17 +30,6 @@ if [ -f "archian-pre.sh" ]; then
   ./archian-pre.sh
 fi
 
-# Vultr specific dns (these get weird when we change them later)
-if [ "$(is_vultr)" == "1" ]; then
-  rm -f ./rootfs/etc/systemd/resolved.conf
-  rm -f ./rootfs/etc/resolv.conf
-  mv ./rootfs/etc/systemd/resolved.conf.vultr ./rootfs/etc/systemd/resolved.conf
-  mv ./rootfs/etc/resolv.conf.vultr ./rootfs/etc/resolv.conf
-else
-  rm -f ./rootfs/etc/systemd/resolved.conf.vultr
-  rm -f ./rootfs/etc/resolv.conf.vultr
-fi
-
 # Add script files to system
 if [ -f "archian-boot.sh" ]; then
     mv archian-boot.sh ./rootfs/opt/boot.sh
