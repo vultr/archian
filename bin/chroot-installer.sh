@@ -67,23 +67,12 @@ Name=e*
 DHCP=yes
 EOF
 
-# Configure resolv
-mkdir -p /etc/resolvconf/resolv.conf.d
-touch /etc/resolvconf/resolv.conf.d/base
-
-echo "DNS=8.8.8.8 2001:4860:4860::8888" >> /etc/systemd/resolved.conf
-echo "FallbackDNS=8.8.4.4 2001:4860:4860::8844" >> /etc/systemd/resolved.conf
-echo "ReadEtcHosts=yes" >> /etc/systemd/resolved.conf
-echo "nameserver 8.8.8.8" > /etc/resolv.conf
-echo "nameserver 8.8.4.4" >> /etc/resolv.conf
-echo "nameserver 2001:4860:4860::8888" >> /etc/resolv.conf
-echo "nameserver 2001:4860:4860::8844" >> /etc/resolv.conf
-
 # Enable/Disable services
 systemctl enable ufw
 systemctl enable sshd
 systemctl enable NetworkManager
 systemctl enable archboot
+systemctl enable systemd-resolved
 timedatectl set-ntp true
 
 # Run user script if it exists
