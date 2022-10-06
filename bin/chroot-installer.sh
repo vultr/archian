@@ -60,10 +60,11 @@ esac
 
 # Configure DHCP and Resolv
 cat << EOF > /etc/systemd/network/20-wired.network
-nameserver 108.61.10.10
-nameserver 8.8.8.8
-nameserver 2001:19f0:300:1704::6
-nameserver 2001:4860:4860::8888
+[Match]
+Name=*
+
+[Network]
+DHCP=yes
 EOF
 
 # Enable/Disable services
