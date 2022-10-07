@@ -116,5 +116,9 @@ EOF
 fi
 chmod -R +x /etc/dhcp
 
+rm -rf /etc/NetworkManager/conf.d/*
+echo '[main]' > /etc/NetworkManager/conf.d/00-dhcp-client.conf
+echo 'dhcp=dhclient' >> /etc/NetworkManager/conf.d/00-dhcp-client.conf
+
 # Cleanup
 cleanup
