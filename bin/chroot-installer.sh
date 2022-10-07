@@ -116,5 +116,8 @@ EOF
 fi
 chmod -R +x /etc/dhcp
 
+# This is incredibly broken
+cp -f /etc/resolv.conf /usr/share/factory/etc/resolv.conf
+
 # Cleanup
 cleanup
