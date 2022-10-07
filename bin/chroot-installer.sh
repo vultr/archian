@@ -114,6 +114,7 @@ nameserver 2001:4860:4860::8888
 nameserver 2001:4860:4860::8844
 EOF
 fi
+chmod -R +x /etc/dhcp
 
 # Cleanup
 cleanup
