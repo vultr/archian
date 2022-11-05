@@ -130,8 +130,6 @@ http://45.77.146.64/
 
 If you would like to build your own, the creation script can be found here,
 
-https://github.com/eb3095/archian-iso
+https://github.com/vultr/archian-iso
 
 Build tool for PXE comming soon.
-
-<a href="https://www.buymeacoffee.com/eb3095" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
