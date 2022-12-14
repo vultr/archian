@@ -118,7 +118,7 @@ function buildInitramfs {
     sed -i -e 's/HOOKS=(base udev autodetect modconf block filesystems keyboard fsck)/HOOKS=(base udev autodetect modconf block lvm2 filesystems keyboard fsck)/g' /etc/mkinitcpio.conf
     if [ -f /raid1 ]; then
         rm -f /raid1
-        sed -i -e 's/HOOKS=(base udev autodetect modconf block lvm2 filesystems keyboard fsck)/HOOKS=(base udev autodetect modconf block lvm2 mdadm filesystems keyboard fsck)/g' /etc/mkinitcpio.conf
+        sed -i -e 's/HOOKS=(base udev autodetect modconf block lvm2 filesystems keyboard fsck)/HOOKS=(base udev autodetect modconf block lvm2 mdadm_udev filesystems keyboard fsck)/g' /etc/mkinitcpio.conf
     fi
     mkinitcpio -p linux-lts
 }
