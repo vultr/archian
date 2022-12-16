@@ -29,6 +29,7 @@ yes | pacman -Sy iptables-nft
 setClock
 configureLocale
 configureHosts
+buildInitramfs
 
 # Set User details
 setRootPassword
@@ -52,9 +53,9 @@ setupInstaller
 install "Common" "common"
 
 case $os in
-		[1]* ) desktopSetup;;
-		[2]* ) serverSetup;;
-		[3]* ) blackArchSetup;;
+    [1]* ) desktopSetup;;
+    [2]* ) serverSetup;;
+    [3]* ) blackArchSetup;;
 esac
 
 # Configure DHCP and Resolv
@@ -76,7 +77,7 @@ timedatectl set-ntp true
 
 # Run user script if it exists
 if [ -f "bin/archian-post.sh" ]; then
-		bin/archian-post.sh > /var/log/archpost.log 2>&1
+    bin/archian-post.sh > /var/log/archpost.log 2>&1
 fi
 
 # Dispose of installer user
@@ -87,26 +88,26 @@ mkdir -p /etc/resolvconf/resolv.conf.d
 touch /etc/resolvconf/resolv.conf.d/base
 
 if [ "$(is_vultr)" == "1" ]; then
-	cat << EOF > /etc/systemd/resolved.conf
+  cat << EOF > /etc/systemd/resolved.conf
 [Resolve]
 DNS=108.61.10.10 2001:19f0:300:1704::6
 FallbackDNS=8.8.8.8 2001:4860:4860::8888
 ReadEtcHosts=yes
 EOF
-	cat << EOF > /etc/resolv.conf
+  cat << EOF > /etc/resolv.conf
 nameserver 108.61.10.10
 nameserver 8.8.8.8
 nameserver 2001:19f0:300:1704::6
 nameserver 2001:4860:4860::8888
 EOF
 else
-	cat << EOF > /etc/systemd/resolved.conf
+  cat << EOF > /etc/systemd/resolved.conf
 [Resolve]
 DNS=8.8.8.8 2001:4860:4860::8888
 FallbackDNS=8.8.4.4 2001:4860:4860::8844
 ReadEtcHosts=yes
 EOF
-	cat << EOF > /etc/resolv.conf
+  cat << EOF > /etc/resolv.conf
 nameserver 8.8.8.8
 nameserver 8.8.4.4
 nameserver 2001:4860:4860::8888
@@ -118,9 +119,6 @@ chmod -R +x /etc/dhcp
 rm -rf /etc/NetworkManager/conf.d/*
 echo '[main]' > /etc/NetworkManager/conf.d/00-dhcp-client.conf
 echo 'dhcp=dhclient' >> /etc/NetworkManager/conf.d/00-dhcp-client.conf
-
-# Post setup, we want to do this last to prevent initramfs from being rebuilt
-buildInitramfs
 
 # Cleanup
 cleanup
