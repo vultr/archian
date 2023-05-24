@@ -115,10 +115,12 @@ function configureHosts {
 
 function buildInitramfs {
     # Make initramfs
-    sed -i -e 's/HOOKS=(base udev autodetect modconf block filesystems keyboard fsck)/HOOKS=(base udev autodetect modconf block lvm2 filesystems keyboard fsck)/g' /etc/mkinitcpio.conf
     if [ -f /raid1 ]; then
         rm -f /raid1
-        sed -i -e 's/HOOKS=(base udev autodetect modconf block lvm2 filesystems keyboard fsck)/HOOKS=(base udev autodetect modconf block lvm2 mdadm filesystems keyboard fsck)/g' /etc/mkinitcpio.conf
+        mdadm --detail --scan >> /mnt/etc/mdadm.conf
+        sed -i -e 's/filesystems/lvm2 mdadm mdadm_udev filesystems/g' /etc/mkinitcpio.conf
+    else
+        sed -i -e 's/filesystems/lvm2 filesystems/g' /etc/mkinitcpio.conf
     fi
     mkinitcpio -p linux-lts
 }
