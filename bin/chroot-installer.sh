@@ -73,6 +73,9 @@ systemctl enable sshd
 systemctl enable NetworkManager
 systemctl enable archboot
 systemctl enable systemd-resolved
+systemctl enable watchdog
+systemctl enable wd_keepalive
+
 timedatectl set-ntp true
 
 # Run user script if it exists

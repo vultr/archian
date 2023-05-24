@@ -1,1 +1,1 @@
-firefox atom nextcloud-client mattermost-desktop inkscape gimp
+firefox inkscape gimp
